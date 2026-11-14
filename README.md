@@ -1,6 +1,6 @@
 # Winner's curse of maps
 
-Code, small data and figure data for the manuscript *Machine learning–based maps misstate their uncertainty where decisions are made* (2026).
+Code and small data for the manuscript *Machine learning–based maps misstate their uncertainty where decisions are made* (2026).
 
 Maps made by machine learning are used to choose places: the forest plots with the most carbon for credits, the poorest villages for aid. Intervals that are valid on average over a map can fail at exactly the places such a rule selects. The Python package **mapselect** (`package/`) calibrates each selected place only on audited places that the same rule would have selected, gives coverage floors for every region (RegionCP), bounds selected totals, and tells you before any field work how large the audit has to be. The rest of the repository holds every experiment, figure and test of the paper.
 
@@ -70,7 +70,7 @@ The other loaders in `experiments/data.py` read the published source tables (fil
 `CITATION.cff` gives the citation of this code; the article reference will be added on publication.
 
 ## Working codes in the code and notes
-Scripts and result tables use working labels for supplementary items. Their final labels, as in the PDFs (sub-tables and figure panels keep their letters; sections of a note keep their numbers):
+Scripts and result tables use working labels for supplementary items. Their final labels, as in the PDFs (sub-tables keep their letters; sections of a note keep their numbers):
 
 | Working label | Final |
 |---|---|
@@ -113,14 +113,3 @@ Scripts and result tables use working labels for supplementary items. Their fina
 | Table S20 | SI Appendix, Table S13 |
 | Table S18 | SI Appendix, Table S14 |
 | Table S11 | SI Appendix, Table S15 |
-| Supplementary Fig. 25 | SI Appendix, Fig. S1 |
-| Supplementary Fig. 9 | SI Appendix, Fig. S2 |
-| Supplementary Fig. 15 | SI Appendix, Fig. S3 |
-| Supplementary Fig. 2 | SI Appendix, Fig. S4 |
-| Supplementary Fig. 28 | SI Appendix, Fig. S5 |
-| Supplementary Fig. 23 | SI Appendix, Fig. S6 |
-| Supplementary Fig. 22 | SI Appendix, Fig. S7 |
-| Supplementary Fig. 24 | SI Appendix, Fig. S8 |
-| Supplementary Fig. 29 | SI Appendix, Fig. S9 |
-| Supplementary Fig. 27 | SI Appendix, Fig. S10 |
-| Supplementary Fig. 31 | SI Appendix, Fig. S11 |
