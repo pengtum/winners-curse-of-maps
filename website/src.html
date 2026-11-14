@@ -1,0 +1,544 @@
+<title>mapselect</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a survey sheet. A working map opens the page, then each section is one instrument: explain, plan, check, use. */
+:root{
+  --paper:#eef2ee;--sheet:#fbfcf9;--ink:#10261f;--ink2:#4a5d55;--ink3:#74857d;--line:#d2dbd4;--wash:#e3e9e3;
+  --sel:#c0176b;--ref:#2a78d6;--vio:#4a3aa7;--org:#d9562a;--grn:#1a9c6e;--miss:#cb181d;--band:#c9d2cb;
+  --relief-a:#f4f6f0;--relief-b:#bcc7b4;--contour:#8f9d8d;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;--body:"Source Sans 3","Segoe UI",Helvetica,Arial,sans-serif;--mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0e1613;--sheet:#15201c;--ink:#e8efeb;--ink2:#a9b9b1;--ink3:#7f9088;--line:#2c3a34;--wash:#1e2b26;
+  --sel:#f0609f;--ref:#5a9bea;--vio:#9c91ee;--org:#e8794e;--grn:#35bd8c;--miss:#f0635f;--band:#35443d;
+  --relief-a:#17231e;--relief-b:#3b4d41;--contour:#5a6d60;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0e1613;--sheet:#15201c;--ink:#e8efeb;--ink2:#a9b9b1;--ink3:#7f9088;--line:#2c3a34;--wash:#1e2b26;
+  --sel:#f0609f;--ref:#5a9bea;--vio:#9c91ee;--org:#e8794e;--grn:#35bd8c;--miss:#f0635f;--band:#35443d;
+  --relief-a:#17231e;--relief-b:#3b4d41;--contour:#5a6d60;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font:400 17px/1.55 var(--body)}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--paper);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;gap:6px 22px;align-items:baseline;flex-wrap:wrap;padding-block:9px}
+nav b{font:700 23px/1 var(--display);letter-spacing:.01em;margin-right:auto}
+nav a{color:var(--ink2);text-decoration:none;font:600 17px/1.2 var(--display);letter-spacing:.03em}
+nav a:hover,nav a:focus-visible{color:var(--sel)}
+h1{font:600 clamp(40px,6.2vw,74px)/.98 var(--display);margin:0;letter-spacing:-.005em;text-wrap:balance;max-width:17ch}
+h2{font:600 clamp(30px,4vw,44px)/1.04 var(--display);margin:0;text-wrap:balance}
+h3{font:600 23px/1.15 var(--display);margin:0;letter-spacing:.005em}
+p{margin:0;max-width:66ch}
+.lede{font-size:20px;line-height:1.45;color:var(--ink2);max-width:58ch}
+header.hero{padding-block:44px 26px}
+header.hero .wrap{display:grid;gap:18px}
+section{padding-block:54px;border-top:1px solid var(--line)}
+section>.wrap{display:grid;gap:24px}
+.head{display:grid;gap:10px}
+.grid2{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:22px;align-items:start}
+.grid2.even{grid-template-columns:repeat(2,minmax(0,1fr))}
+.panel{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:16px;min-width:0;display:grid;gap:12px;align-content:start}
+.cap{font-size:14.5px;line-height:1.4;color:var(--ink2)}
+.src{font-size:13px;line-height:1.35;color:var(--ink3)}
+.lab{font:600 15px/1.1 var(--display);letter-spacing:.05em;text-transform:uppercase;color:var(--ink2)}
+.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px 18px}
+label.c{display:grid;gap:4px;font-size:14.5px;color:var(--ink2)}
+label.c output{font:500 14px var(--mono);color:var(--ink);float:right}
+input[type=range]{width:100%;accent-color:var(--sel);margin:0}
+select,input[type=number]{font:400 15.5px var(--body);color:var(--ink);background:var(--sheet);border:1px solid var(--ink3);border-radius:3px;padding:5px 7px;width:100%;min-width:0}
+input[type=number]{font-family:var(--mono);font-size:14.5px}
+button{font:600 16px/1 var(--display);letter-spacing:.03em;color:var(--sheet);background:var(--ink);border:1px solid var(--ink);border-radius:3px;padding:9px 13px;cursor:pointer}
+button.alt{background:transparent;color:var(--ink)}
+button:hover{background:var(--sel);border-color:var(--sel);color:#fff}
+:focus-visible{outline:2px solid var(--sel);outline-offset:2px}
+.btns{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+button[aria-pressed="true"]{background:var(--ink);color:var(--sheet)}
+canvas{width:100%;display:block;border:1px solid var(--line);border-radius:2px;background:var(--wash)}
+svg{display:block;width:100%;overflow:visible}
+svg text{font-family:var(--body);fill:var(--ink2);font-size:13px}
+svg .num{font-family:var(--mono);font-size:12.5px;fill:var(--ink)}
+svg .gl{stroke:var(--line);stroke-width:1}
+svg .ax{stroke:var(--ink3);stroke-width:1}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:14px;color:var(--ink2)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:baseline}
+.legend i.o{background:transparent;border:1.5px solid var(--ink2)}
+.legend i.l{width:16px;height:3px;border-radius:2px;vertical-align:middle}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
+.stat b{display:block;font:600 34px/1 var(--display);color:var(--ink);font-variant-numeric:tabular-nums}
+.stat span{font-size:14px;line-height:1.3;color:var(--ink2);display:block;margin-top:3px}
+.note{border-left:3px solid var(--sel);padding:2px 0 2px 12px;font-size:15.5px;color:var(--ink2);max-width:72ch}
+pre{margin:0;overflow-x:auto;background:var(--wash);border-radius:3px;padding:12px 14px;font:400 13.5px/1.55 var(--mono);color:var(--ink)}
+code{font:400 .88em var(--mono)}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14.5px;font-variant-numeric:tabular-nums}
+th{font:600 15px/1.15 var(--display);letter-spacing:.03em;text-align:left;color:var(--ink2);border-bottom:1px solid var(--ink3);padding:5px 10px 5px 0;vertical-align:bottom}
+td{border-bottom:1px solid var(--line);padding:5px 10px 5px 0;vertical-align:top}
+td.n,th.n{text-align:right;font-family:var(--mono);font-size:13.5px}
+details summary{cursor:pointer;font-size:14px;color:var(--ink2)}
+details[open] summary{margin-bottom:6px}
+#tip{position:fixed;z-index:20;pointer-events:none;background:var(--ink);color:var(--sheet);font-size:13.5px;line-height:1.35;padding:6px 8px;border-radius:3px;max-width:260px}
+.swapdot{cursor:pointer}
+.swapdot:hover circle{stroke-width:3}
+.swapdot circle,.swapdot{transition:transform .35s ease}
+footer{padding-block:30px;border-top:1px solid var(--line);font-size:14px;color:var(--ink3)}
+@media (prefers-reduced-motion:reduce){.swapdot,.swapdot circle{transition:none}}
+@media (max-width:820px){.grid2,.grid2.even{grid-template-columns:minmax(0,1fr)}section{padding-block:40px}}
+</style>
+
+<nav><div class="wrap"><b>mapselect</b><a href="#problem">The problem</a><a href="#lab">Try it</a><a href="#data">Data</a><a href="#fia">Real plots</a><a href="#swap">How it works</a><a href="#plan">Plan an audit</a><a href="#evidence">Evidence</a><a href="#use">Use it</a></div></nav>
+
+<header class="hero"><div class="wrap">
+<h1>Map uncertainty can fail at the places a map selects.</h1>
+<p class="lede">Machine-learning maps help choose where carbon is credited and where aid goes. Intervals that hold on average can be too narrow or needlessly wide at exactly those places. mapselect calibrates each selected place only on audited places the same rule would have selected.</p>
+</div></header>
+
+<section id="problem" style="border-top:0;padding-top:0"><div class="wrap">
+<div class="grid2">
+ <div class="panel">
+  <div class="lab">Forest plots in ten US states</div>
+  <canvas id="pMap" aria-label="FIA plots coloured by predicted biomass, with the plots the map selected"></canvas>
+  <div class="legend"><span><i style="background:var(--grn)"></i>Predicted biomass</span><span><i style="background:var(--sel)"></i>Selected by the map</span><span><i class="o" style="border-color:var(--miss);border-width:2px"></i>Selected, outside its interval</span></div>
+  <div class="btns" role="group" aria-label="Share selected"><button class="alt" data-pshare="0.01" aria-pressed="true">Highest 1%</button><button class="alt" data-pshare="0.05">Highest 5%</button><button id="pNew">Draw another audit</button></div>
+ </div>
+ <div class="panel">
+  <h3>The map's 90% intervals miss where it selects</h3>
+  <canvas id="pErr" aria-label="Error at every candidate plot, ranked by predicted biomass, against the interval"></canvas>
+  <div class="legend"><span><i class="l" style="background:var(--band);height:10px"></i>90% interval, one width (split CP)</span><span><i style="background:var(--ink3)"></i>Other plots</span><span><i style="background:var(--sel)"></i>Selected, inside</span><span><i style="background:var(--miss)"></i>Selected, outside</span></div>
+  <div class="stats"><div class="stat"><b id="pAll"></b><span>of all candidate plots covered</span></div><div class="stat"><b id="pSel" style="color:var(--miss)"></b><span>of the selected plots covered</span></div><div class="stat"><b id="pJomi" style="color:var(--ref)"></b><span>with mapselect (JOMI)</span></div></div>
+  <p class="src">Averages over 300 random audits of half the plots; the dots show the current one. Site-attribute biomass map, the kind that could map unvisited land (held-out R² 0.49). Scaling the width by the map's modelled error helps here (0.86) without a guarantee.</p>
+ </div>
+</div>
+<div class="panel" style="grid-template-columns:minmax(0,auto) minmax(0,1fr);align-items:center;gap:10px 22px">
+ <div class="stat"><b>1.8×</b><span>wider than needed</span></div>
+ <p class="cap" style="max-width:none">The failure also runs the other way. At the poorest 5% of survey villages in 23 African countries, a wealth map's default intervals covered 0.98 of the true values, 1.8 times as wide as intervals calibrated on the villages the rule would also select, which still covered 0.91. Aid targeted with them screens out villages it need not.</p>
+</div>
+</div></section>
+
+<section id="lab"><div class="wrap">
+<div class="head"><h2>Why it happens: try it on a synthetic map</h2><p class="lede">Ranking picks the places whose errors are least typical. Change the rule, the audit and how fast errors grow, and watch the default interval and JOMI over hundreds of audits.</p></div>
+<div class="grid2">
+ <div class="panel">
+  <canvas id="map" aria-label="Synthetic map with audited places, candidates, selected places and the reference set"></canvas>
+  <div class="legend"><span><i class="o"></i>Audited</span><span><i style="background:var(--ink3)"></i>Candidate</span><span><i style="background:var(--sel)"></i>Selected</span><span><i style="background:var(--ref)"></i>Reference set</span></div>
+  <div class="controls">
+   <label class="c" for="rule">Selection rule<select id="rule"><option value="top">Highest predicted</option><option value="bottom">Lowest predicted</option><option value="quota">Highest in each of 5 regions</option><option value="budget">Budget: value per travel cost</option></select></label>
+   <label class="c" for="share"><span>Share selected <output id="shareO"></output></span><input id="share" type="range" min="1" max="20" step="1" value="5"></label>
+   <label class="c" for="audit"><span>Audited places <output id="auditO"></output></span><input id="audit" type="range" min="40" max="800" step="10" value="600"></label>
+   <label class="c" for="growth"><span>Errors grow with value <output id="growthO"></output></span><input id="growth" type="range" min="0" max="100" step="5" value="60"></label>
+   <label class="c" for="score">Error scale<select id="score"><option value="raw">One width for all places</option><option value="scaled">Width scaled by modelled spread</option></select></label>
+  </div>
+  <div class="btns"><button id="redraw" class="alt">Draw another audit</button><button id="run">Run 400 more audits</button><span class="cap" id="runs" aria-live="polite"></span></div>
+ </div>
+ <div class="panel">
+  <h3>Do intervals cover the truth 90% of the time?</h3>
+  <div id="bars"></div>
+  <div class="stats"><div class="stat"><b id="sInf"></b><span>of JOMI intervals are infinite, counted as covering</span></div><div class="stat"><b id="sR"></b><span>audited places in a typical reference set</span></div><div class="stat"><b id="sW"></b><span>JOMI half-width against split CP (finite only)</span></div></div>
+  <h3>Selected places in this audit</h3>
+  <div id="errs"></div>
+  <div class="legend"><span><i class="l" style="background:var(--band);height:10px"></i>Split CP interval</span><span><i class="l" style="background:var(--ref)"></i>JOMI interval</span><span><i style="background:var(--ink2)"></i>Error, inside split CP</span><span><i style="background:var(--miss)"></i>Error, outside split CP</span></div>
+  <p class="src">Simulated in your browser on a synthetic map of 1,500 places. A teaching model: the settings change the answer, and these numbers are not results from real data.</p>
+ </div>
+</div>
+</div></section>
+
+<section id="data"><div class="wrap">
+<div class="head"><h2>Seven data sources, eleven settings</h2><p class="lede">Each source gets a random-forest map fitted on 40% of its places, then 100 random audits. The rule picks the places a decision would favour: the poorest villages, the coldest cells, the highest everything else.</p></div>
+<div class="grid2">
+ <div class="panel">
+  <div class="tw"><table><thead><tr><th>Source</th><th>Places</th><th class="n">Units</th><th>Outcome</th><th>Rule picks</th></tr></thead><tbody>
+   <tr><td>FIA forest plots</td><td>10 US states</td><td class="n">10,000</td><td>Above-ground biomass, measured</td><td>Highest</td></tr>
+   <tr><td>DHS survey clusters</td><td>23 African countries</td><td class="n">10,000</td><td>Household wealth index, measured (with and without imagery)</td><td>Poorest</td></tr>
+   <tr><td>ERA5 grid cells</td><td>Contiguous US</td><td class="n">10,000</td><td>2 m air temperature, reanalysis</td><td>Coldest</td></tr>
+   <tr><td>CAMELS basins</td><td>Contiguous US</td><td class="n">670</td><td>Mean runoff, measured</td><td>Highest</td></tr>
+   <tr><td>Counties</td><td>Contiguous US</td><td class="n">3,108</td><td>Presidential vote share, measured</td><td>Highest</td></tr>
+   <tr><td>House sales</td><td>King County, Washington</td><td class="n">3,000</td><td>Log sale price, measured</td><td>Highest</td></tr>
+   <tr><td>CDC PLACES counties</td><td>Contiguous US</td><td class="n">2,350</td><td>Four health outcomes, <i>model estimates</i></td><td>Highest</td></tr>
+  </tbody></table></div>
+  <p class="src">FIA is the plot table rebuilt from FIADB 9.5 (10,000 of 27,059 plots); DHS is PovertyMap-WILDS v1.1 (10,000 of 19,669 clusters), shown here as country summaries only. * PLACES outcomes are model estimates, so they test the method but are not ground truth.</p>
+ </div>
+ <div class="panel">
+  <h3>As the rule tightens, coverage at the selected places falls</h3>
+  <div class="btns"><button id="sharePlay">Play</button><span class="lab" id="shareNow" aria-live="polite"></span>
+   <span class="btns" role="group" aria-label="Share selected"><button class="alt" data-share="20">20%</button><button class="alt" data-share="5">5%</button><button class="alt" data-share="1">1%</button></span></div>
+  <div id="sharePlot"></div>
+  <div class="legend"><span><i style="background:var(--org)"></i>GeoCP</span><span><i style="background:var(--ink2)"></i>Normalized CP</span><span><i style="background:var(--ref)"></i>JOMI</span><span><i class="l" style="background:var(--ink3)"></i>Target 0.90</span></div>
+  <p class="src">Share of candidates the rule selects; coverage over 100 audits. At 1%, many JOMI intervals are infinite because few audited places pass the cutoff (bar behind each blue dot), and they count as covering. * Model outcomes.</p>
+ </div>
+</div>
+</div></section>
+
+<section id="fia"><div class="wrap">
+<div class="head"><h2>Run the audit on real forest plots</h2><p class="lede">6,000 FIA plots in ten US states, never used to fit the map. Each run draws a new random audit, lets the map pick its highest plots, and checks the intervals and a carbon credit against the measured biomass.</p></div>
+<div class="grid2">
+ <div class="panel">
+  <canvas id="fiaMap" aria-label="FIA plots in ten US states coloured by predicted biomass"></canvas>
+  <div class="legend"><span><i style="background:var(--grn);opacity:.35"></i>Lower predicted biomass</span><span><i style="background:var(--grn)"></i>Higher</span><span><i style="background:var(--sel)"></i>Selected</span><span><i style="background:var(--ref)"></i>Reference set</span></div>
+  <div class="controls">
+   <label class="c" for="fMap">Map<select id="fMap"><option value="site">Site attributes (deployable)</option><option value="full">Full ground inventory (benchmark)</option></select></label>
+   <label class="c" for="fShare">Share selected<select id="fShare"><option value="0.005">0.5%</option><option value="0.01" selected>1%</option><option value="0.02">2%</option><option value="0.05">5%</option></select></label>
+   <label class="c" for="fAudit"><span>Share of plots audited <output id="fAuditO"></output></span><input id="fAudit" type="range" min="10" max="80" step="5" value="50"></label>
+  </div>
+  <div class="btns"><button id="fRun">Run 300 audits</button><button id="fOne" class="alt">Draw one audit</button><span class="cap" id="fRuns" aria-live="polite"></span></div>
+ </div>
+ <div class="panel">
+  <h3>Intervals at the selected plots</h3>
+  <div id="fBars"></div>
+  <h3>Carbon credit: how often is it over-credited?</h3>
+  <div id="fRisk"></div>
+  <div class="legend"><span><i class="l" style="background:var(--org)"></i>Survey-calibrated, VCS rule</span><span><i class="l" style="background:var(--ref)"></i>Selection-aware, deduction applied</span><span><i class="l" style="background:var(--ink)"></i>Declared 1/3</span></div>
+  <p class="src">Running share of audits whose credit exceeds the plots' measured total. One map from the paper's carbon runs; the paper averages 20 maps, so its numbers differ (site maps: 0.69 against 0.33). The selection-aware estimate is asymptotic; scattered plots are not a real project.</p>
+ </div>
+</div>
+</div></section>
+
+<section id="swap"><div class="wrap">
+<div class="head"><h2>Which audited places count?</h2><p class="lede">Ask one question of each audited place: if it swapped places with a selected one, would the rule still select that slot? The places that pass are the reference set, and they are the fair comparison, because they went through the same rule.</p></div>
+<div class="panel">
+ <div class="controls" style="max-width:520px"><label class="c" for="swapK"><span>Places the rule selects <output id="swapKO"></output></span><input id="swapK" type="range" min="1" max="6" value="3"></label></div>
+ <div id="swapPlot"></div>
+ <p id="swapText" class="note" aria-live="polite"></p>
+ <div class="legend"><span><i style="background:var(--sel)"></i>Selected candidate</span><span><i style="background:var(--ink3)"></i>Other candidate</span><span><i style="background:var(--ref)"></i>Audited, in the reference set</span><span><i class="o"></i>Audited, not in it</span></div>
+ <p class="cap">Click any audited place to try the swap. For this rule the answer has a closed form: an audited place passes if its predicted value beats the first candidate left out. mapselect has closed forms for quotas, budgets and publication masks too, so no swap is ever rerun.</p>
+</div>
+</div></section>
+
+<section id="plan"><div class="wrap">
+<div class="head"><h2>Plan the audit before visiting a single plot</h2><p class="lede">Reference sets depend only on ranks, so their size follows from counts you already know. Change the numbers and the audit updates.</p></div>
+<div class="grid2">
+ <div class="panel">
+  <div class="controls">
+   <label class="c" for="pPop">Places in the population<input id="pPop" type="number" min="100" max="100000000" value="6000"></label>
+   <label class="c" for="pK">Places the rule selects<input id="pK" type="number" min="1" value="30"></label>
+   <label class="c" for="pProb">Chance of finite intervals<select id="pProb"><option value="0.5">0.5</option><option value="0.9" selected>0.9</option><option value="0.99">0.99</option></select></label>
+  </div>
+  <div id="planPlot"></div>
+  <div class="legend" id="planLegend"></div>
+ </div>
+ <div class="panel">
+  <h3>Audit needed</h3>
+  <div class="stats" id="planStats"></div>
+  <p class="note">Targeting works because audited places below the rule's cutoff never enter a reference set. It suits a new audit that must come before the decision. If you can audit after selecting, measure the selected places or sample among them: this selection effect does not arise there. An existing inventory cannot be redrawn.</p>
+  <h3>Coverage floor in one region</h3>
+  <div class="controls">
+   <label class="c" for="fM">Selected places in the region<input id="fM" type="number" min="1" value="3"></label>
+   <label class="c" for="fT">Floor wanted<input id="fT" type="number" min="0" max="0.89" step="0.01" value="0.8"></label>
+  </div>
+  <div class="stats"><div class="stat"><b id="fN"></b><span>audited places, for 3,000 candidates or your population if larger</span></div></div>
+  <p class="cap">A floor is what an audit can guarantee, computed with SC-GeoCCP's penalty of 0.95. Observed coverage is often well above it, and a region can still fall short of 0.90.</p>
+ </div>
+</div>
+</div></section>
+
+<section id="evidence"><div class="wrap">
+<div class="head"><h2>What happened on real data</h2><p class="lede">From the manuscript's stored results. Maps were fitted separately and audits drawn at random 100 times per setting or map.</p></div>
+<div class="grid2 even">
+ <div class="panel">
+  <h3>Coverage of the selected 5%</h3>
+  <div class="controls" style="grid-template-columns:minmax(0,1fr)"><label class="c" for="covM">Compare JOMI with<select id="covM"></select></label></div>
+  <div id="covPlot"></div>
+  <div class="legend"><span><i style="background:var(--ref)"></i>JOMI</span><span><i style="background:var(--org)"></i><span id="covLab"></span></span><span><i class="l" style="background:var(--ink3)"></i>Target 0.90</span></div>
+  <p class="src">Infinite intervals count as covering; CAMELS has 28% for JOMI. * CDC PLACES outcomes are model outputs, not measurements. Normalized CP and fixed bins come close without a guarantee.</p>
+  <details><summary>Table</summary><div class="tw" id="covTab"></div></details>
+ </div>
+ <div class="panel">
+  <h3>Carbon credits: declared and realized risk</h3>
+  <div class="controls" style="grid-template-columns:minmax(0,1fr)"><label class="c" for="riskM">Map<select id="riskM"></select></label></div>
+  <div id="riskPlot"></div>
+  <div class="legend"><span><i class="l" style="background:var(--org)"></i>Survey-calibrated</span><span><i class="l" style="background:var(--ink3)"></i>Map error layer</span><span><i class="l" style="background:var(--ref)"></i>Selection-aware</span></div>
+  <p class="src">FIA plots, highest 1%, audit share 0.5, 20 maps × 100 audits, deduction applied at every declared risk. The selection-aware estimate is an asymptotic result. Plots are scattered, and credits here are on standing biomass, not on change against a baseline.</p>
+ </div>
+ <div class="panel">
+  <h3>Regional floors in 23 African countries</h3>
+  <div id="floorPlot"></div>
+  <div class="legend"><span><i style="background:var(--vio)"></i>Country, SC-GeoCCP</span><span><i class="l" style="background:var(--ink3)"></i>Coverage = floor</span></div>
+  <p class="src">DHS, poorest villages under a 5% country quota; country summaries only. Every country is above its floor, and Côte d'Ivoire is lowest at 0.80.</p>
+  <details><summary>Table</summary><div class="tw" id="floorTab"></div></details>
+ </div>
+ <div class="panel">
+  <h3>Coverage in each country, poorest villages</h3>
+  <div class="btns" role="group" aria-label="Method" id="ctryBtns"></div>
+  <div id="ctryMap"></div>
+  <div class="legend"><span><i style="background:var(--miss)"></i>Below 0.85</span><span><i style="background:#e8c9a8"></i>0.85–0.90</span><span><i style="background:#b9d3ee"></i>0.90–0.95</span><span><i style="background:var(--ref)"></i>Above 0.95, too wide</span><span><i style="background:var(--wash)"></i>Not in the data</span></div>
+  <p class="src">DHS, 5% country quota, 100 audits; country summaries only. Switch methods to watch the map change. Coverage above 0.95 means intervals wider than needed.</p>
+ </div>
+ <div class="panel">
+  <h3>A 30-plot project under different audits</h3>
+  <div class="tw" id="armTab"></div>
+  <p class="src">6,000 non-training FIA plots; site-attribute maps and ESA CCI, 20 maps × 100 audits. Risk is VCS over-crediting: selection-aware with the deduction always applied, survey-calibrated under the VCS rule; 1/3 is declared. Credit is selection-aware over the true total.</p>
+ </div>
+</div>
+<div class="grid2 even">
+ <div class="panel">
+  <h3>Thresholds on one laptop core</h3>
+  <div id="benchPlot"></div>
+  <div class="legend"><span><i class="l" style="background:var(--ref)"></i>Budget</span><span><i class="l" style="background:var(--vio)"></i>Quota</span><span><i class="l" style="background:var(--grn)"></i>Top-K</span><span><i class="l" style="background:var(--org)"></i>Budget, per-unit loop (est.)</span><span><i class="l" style="background:var(--ink3)"></i>Budget, literal swaps (est.)</span></div>
+  <p class="src">Synthetic keys and scores; audit = candidates/10, selected = candidates/100. The per-unit loop is not charged for its precomputation, and it is as fast or faster below 10⁵ candidates. Top-K already had closed forms.</p>
+ </div>
+ <div class="panel">
+  <h3>SC-GeoCCP, seconds per selected place</h3>
+  <div id="lpPlot"></div>
+  <div class="legend"><span><i class="l" style="background:var(--ref)"></i>Active set, warm start</span><span><i class="l" style="background:var(--vio)"></i>Full dual</span><span><i class="l" style="background:var(--org)"></i>Sparse primal</span><span><i class="l" style="background:var(--ink3)"></i>Earlier dense code</span></div>
+  <p class="src">Synthetic, 60 basis functions, one reference set per size. Up to about 10³ reference places there is little to gain; at 10⁵ the first, cold unit takes 4.2 s and no full rule was run.</p>
+ </div>
+</div>
+</div></section>
+
+<section id="use"><div class="wrap">
+<div class="head"><h2>Use it</h2><p class="lede">Python, with numpy and scipy only. Rule, reference set, interval.</p></div>
+<div class="grid2">
+ <div class="panel">
+  <pre id="code">pip install .     # from the package folder; not yet on PyPI
+
+import numpy as np
+import mapselect as ms
+
+# mu: the map; audited, candidates: a random split of one population
+# y is known at the audited places only
+sel = ms.top_k(mu[audited], mu[candidates], K=30)
+scores = np.abs(y[audited] - mu[audited]) / sigma[audited]
+q = ms.jomi(scores, sel, alpha=0.1)       # +inf if too few audited places pass
+J = candidates[sel.selected]
+lower, upper = mu[J] - q * sigma[J], mu[J] + q * sigma[J]
+
+ms.plan.n_for_finite(m=3000, K=30)        # audit size, before any outcome
+ms.plan.n_budget_for_finite(300, K=30)    # the same, inside the top 300 places</pre>
+  <div class="btns"><button id="copy" class="alt">Copy code</button><span class="cap" id="copied" aria-live="polite"></span></div>
+ </div>
+ <div class="panel">
+  <div class="tw"><table><thead><tr><th>Question</th><th>Function</th><th>Guarantee</th></tr></thead><tbody>
+   <tr><td>Interval at each selected place</td><td><code>jomi</code></td><td>Coverage ≥ 1 − α among selected, on average over audits</td></tr>
+   <tr><td>Project total</td><td><code>exact_lower_total</code></td><td>Finite sample, needs a known outcome floor</td></tr>
+   <tr><td></td><td><code>selection_aware_total</code></td><td>Asymptotic</td></tr>
+   <tr><td>Which places to fund</td><td><code>cfbh</code></td><td>False discovery rate ≤ q</td></tr>
+   <tr><td>Coverage in a region</td><td><code>sc_geoccp</code></td><td>Theorem floors, which may be vacuous</td></tr>
+   <tr><td>Audit size</td><td><code>plan.*</code></td><td>Uses no outcomes</td></tr>
+  </tbody></table></div>
+  <p class="note">The guarantees need a random audit of one finite population or of a stratum fixed in advance, a separately fitted map, and a rule that uses covariates alone. Rules that read audited outcomes, audits that are not random and transfer to unsampled regions fall outside them.</p>
+ </div>
+</div>
+</div></section>
+
+<footer><div class="wrap">mapselect 0.1.0, MIT licence. Methods follow Jin and Ren's joint Mondrian conformal inference. Manuscript in preparation; results here have not been peer reviewed.</div></footer>
+<div id="tip" hidden></div>
+
+<script>
+"use strict";
+const DATA=__DATA__;
+const $=id=>document.getElementById(id);
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const NS="http://www.w3.org/2000/svg";
+function E(tag,attrs,parent,text){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(text!=null)e.textContent=text;if(parent)parent.appendChild(e);return e}
+const fmt=(x,d=2)=>Number.isFinite(x)?x.toFixed(d):"∞";
+const int=x=>Math.round(x).toLocaleString("en-US");
+function sec(x){if(x<1e-3)return (x*1e6).toFixed(0)+" µs";if(x<1)return (x*1e3).toPrecision(2)+" ms";if(x<120)return x.toPrecision(2)+" s";if(x<7200)return (x/60).toPrecision(2)+" min";if(x<172800)return (x/3600).toPrecision(2)+" h";if(x<3.15e7)return (x/86400).toPrecision(2)+" days";return int(x/3.15e7)+" years"}
+const sup=n=>{const m="⁰¹²³⁴⁵⁶⁷⁸⁹";return "10"+String(n).split("").map(c=>c==="-"?"⁻":m[+c]).join("")};
+// ---- tooltip
+const tip=$("tip");
+function showTip(ev,html){tip.innerHTML=html;tip.hidden=false;const x=Math.min(ev.clientX+12,innerWidth-tip.offsetWidth-8),y=Math.max(ev.clientY-tip.offsetHeight-10,8);tip.style.left=x+"px";tip.style.top=y+"px"}
+const hideTip=()=>{tip.hidden=true};
+function hover(el,html){el.addEventListener("pointermove",e=>showTip(e,html));el.addEventListener("pointerleave",hideTip)}
+// ---- random numbers
+function rng(seed){let a=seed>>>0;return()=>{a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function normal(r){return Math.sqrt(-2*Math.log(r()+1e-12))*Math.cos(2*Math.PI*r())}
+function shuffle(n,r){const p=Array.from({length:n},(_,i)=>i);for(let i=n-1;i>0;i--){const j=Math.floor(r()*(i+1));[p[i],p[j]]=[p[j],p[i]]}return p}
+
+// ---- the same mathematics as excp/mapselect
+const lg=(()=>{const c=[76.18009172947146,-86.50532032941677,24.01409824083091,-1.231739572450155,.1208650973866179e-2,-.5395239384953e-5];return x=>{let y=x,t=x+5.5;t-=(x+.5)*Math.log(t);let s=1.000000000190015;for(const v of c)s+=v/++y;return -t+Math.log(2.5066282746310005*s/x)}})();
+const lchoose=(a,b)=>(b<0||b>a)?-Infinity:lg(a+1)-lg(b+1)-lg(a-b+1);
+function pFinite(n,m,K,alpha=.1){const thr=Math.ceil((1-alpha)/alpha-1e-12);if(n<thr)return 0;if(K>=m)return 0;const den=lchoose(n+m,n);let miss=0;for(let r=0;r<thr;r++){miss+=Math.exp(lchoose(r+K,K)+lchoose(n-r+m-K-1,m-K-1)-den)}return Math.max(0,Math.min(1,1-miss))}
+function nBudget(pop,K,prob,alpha=.1){const thr=Math.ceil((1-alpha)/alpha-1e-12);let hi=pop-K-1;if(hi<thr||pFinite(hi,pop-hi,K,alpha)<prob)return null;let lo=thr-1;while(hi-lo>1){const mid=(lo+hi)>>1;if(pFinite(mid,pop-mid,K,alpha)>=prob)hi=mid;else lo=mid}return hi}
+function nFixed(m,K,prob,alpha=.1){const thr=Math.ceil((1-alpha)/alpha-1e-12);let lo=thr-1,hi=thr;while(pFinite(hi,m,K,alpha)<prob){lo=hi;hi*=2;if(hi>1e9)return null}while(hi-lo>1){const mid=Math.floor((lo+hi)/2);if(pFinite(mid,m,K,alpha)>=prob)hi=mid;else lo=mid}return hi}
+function invMoment(n,m,K){const eps=Math.exp(lchoose(n+m-K,m-K-1)-lchoose(n+m,m-1));return m*(1-eps)/(K*(n+1))}
+const floorAt=(n,m,K,Mu,l1=.95,tau=.9)=>tau-l1*invMoment(n,m,K)*K/Mu;
+function nFloor(m,K,Mu,target){if(target>=.9)return null;let lo=0,hi=1;while(floorAt(hi,m,K,Mu)<target){lo=hi;hi*=2;if(hi>1e10)return null}while(hi-lo>1){const mid=Math.floor((lo+hi)/2);if(floorAt(mid,m,K,Mu)>=target)hi=mid;else lo=mid}return hi}
+
+// ---- world
+const N=1500;let world=null;
+const relief=(x,y)=>Math.exp(-((x-.68)**2+(y-.58)**2)/(2*.17**2))+.55*Math.exp(-((x-.22)**2+(y-.30)**2)/(2*.12**2))+.18*Math.exp(-((x-.25)**2+(y-.82)**2)/(2*.1**2));
+const regionOf=(x,y)=>Math.max(0,Math.min(4,Math.floor(5*(x+.05*Math.sin(6.3*y)))));
+function makeWorld(g){const r=rng(2027);const w={x:new Float64Array(N),y:new Float64Array(N),mu:new Float64Array(N),t:new Float64Array(N),s:new Float64Array(N),g:new Int32Array(N),c:new Float64Array(N)};
+ for(let i=0;i<N;i++){const x=r(),y=r(),f=relief(x,y),z=normal(r);w.x[i]=x;w.y[i]=y;w.mu[i]=f+1e-7*r();w.s[i]=.05+g*f*f;w.t[i]=f+w.s[i]*z;w.g[i]=regionOf(x,y);w.c[i]=1+2.2*Math.hypot(x-.5,y-.5)}return w}
+function selectRule(rule,w,A,T,share){
+ if(rule==="top"||rule==="bottom"){const sg=rule==="top"?1:-1,K=Math.max(1,Math.round(share*T.length));const o=T.slice().sort((a,b)=>sg*(w.mu[b]-w.mu[a]));const th=sg*w.mu[o[K]];const R=A.filter(i=>sg*w.mu[i]>th);return{S:o.slice(0,K),R:()=>R,sets:1}}
+ if(rule==="quota"){const by=[[],[],[],[],[]];for(const i of T)by[w.g[i]].push(i);const allT=[],minusT=[],S=[];const inv=new Map();for(let g=0;g<5;g++){const o=by[g].sort((a,b)=>w.mu[b]-w.mu[a]);const k=Math.max(1,Math.round(share*o.length));allT[g]=k<=o.length?w.mu[o[k-1]]:-Infinity;minusT[g]=k<o.length?w.mu[o[k]]:-Infinity;for(let q=0;q<Math.min(k,o.length);q++){S.push(o[q]);inv.set(o[q],g)}}
+  const cache={};return{S,R:j=>{const g=inv.get(j);if(!cache[g])cache[g]=A.filter(i=>w.mu[i]>(w.g[i]===g?minusT[g]:allT[w.g[i]]));return cache[g]},sets:5}}
+ const ratio=i=>(w.mu[i]+.1)/w.c[i];const o=T.slice().sort((a,b)=>ratio(b)-ratio(a));let tot=0;for(const i of T)tot+=w.c[i];const B=share*tot;const S=[];let cum=0;for(const i of o){cum+=w.c[i];if(cum<=B)S.push(i);else break}
+ const asc=o.slice().reverse(),rs=asc.map(ratio),suf=new Float64Array(asc.length+1);for(let k=asc.length-1;k>=0;k--)suf[k]=suf[k+1]+w.c[asc[k]];
+ const above=A.map(i=>{const v=ratio(i);let lo=0,hi=rs.length;while(lo<hi){const m=(lo+hi)>>1;if(rs[m]<=v)lo=m+1;else hi=m}return suf[lo]});
+ return{S,R:j=>{const rj=ratio(j),cj=w.c[j];return A.filter((i,k)=>above[k]-(rj>ratio(i)?cj:0)+w.c[i]<=B)},sets:S.length}}
+function jomiQ(sc){const N=sc.length,k=Math.ceil(.9*(N+1)-1e-9*(N+1));if(k>N)return Infinity;return Float64Array.from(sc).sort()[k-1]}
+function trial(w,par,seed){const r=rng(seed),p=shuffle(N,r),A=p.slice(0,par.n),T=p.slice(par.n);
+ const scale=par.scaled?(i=>w.s[i]):(()=>1);const score=i=>Math.abs(w.t[i]-w.mu[i])/scale(i);
+ const qs=jomiQ(A.map(score));const sel=selectRule(par.rule,w,A,T,par.share);
+ let covAll=0;for(const i of T)if(score(i)<=qs)covAll++;
+ const units=[];let cs=0,cj=0,inf=0,rs=0,wj=0,wj0=0,fin=0;const seen=new Map();
+ for(const j of sel.S){const R=sel.R(j);let q=seen.get(R);if(q===undefined){q=jomiQ(R.map(score));if(sel.sets<50)seen.set(R,q)}const e=score(j);
+  if(e<=qs)cs++;if(e<=q)cj++;if(!Number.isFinite(q))inf++;else{fin++;wj+=q*scale(j);wj0+=qs*scale(j)}rs+=R.length;units.push({j,e:(w.t[j]-w.mu[j])/scale(j),q,mu:w.mu[j]})}
+ return{A,T,S:sel.S,R:sel.S.length?sel.R(sel.S[0]):[],qs,units,covAll:covAll/T.length,k:sel.S.length,cs,cj,inf,rs,wj,wj0,fin,nT:T.length}}
+
+// ---- map
+let relCanvas=null;
+function buildRelief(cw,ch){const c=document.createElement("canvas");c.width=cw;c.height=ch;const x=c.getContext("2d"),im=x.createImageData(cw,ch);const hx=s=>{s=s.replace("#","");return[0,2,4].map(i=>parseInt(s.slice(i,i+2),16))};const a=hx(css("--relief-a")),b=hx(css("--relief-b"));const lv=9;
+ for(let py=0;py<ch;py++)for(let px=0;px<cw;px++){const v=Math.min(1,relief(px/cw,1-py/ch)/1.02),t=Math.floor(v*lv)/lv,q=(px+py*cw)*4;for(let k=0;k<3;k++)im.data[q+k]=a[k]+(b[k]-a[k])*t;im.data[q+3]=255}
+ x.putImageData(im,0,0);x.strokeStyle=css("--contour");x.globalAlpha=.55;x.lineWidth=.7;
+ const G=150,GY=Math.round(G*ch/cw);for(let l=1;l<lv;l++){const L=l/lv*1.02;x.beginPath();for(let gy=0;gy<GY;gy++)for(let gx=0;gx<G;gx++){const P=[[gx/G,gy/GY],[(gx+1)/G,gy/GY],[(gx+1)/G,(gy+1)/GY],[gx/G,(gy+1)/GY]];const V=P.map(p=>relief(p[0],1-p[1]));const pts=[];for(let e=0;e<4;e++){const u=V[e],w=V[(e+1)%4];if((u<L)!==(w<L)){const f=(L-u)/(w-u),a0=P[e],b0=P[(e+1)%4];pts.push([a0[0]+f*(b0[0]-a0[0]),a0[1]+f*(b0[1]-a0[1])])}}if(pts.length>=2){x.moveTo(pts[0][0]*cw,pts[0][1]*ch);x.lineTo(pts[1][0]*cw,pts[1][1]*ch)}}x.stroke()}
+ x.globalAlpha=1;return c}
+function drawMap(){const c=$("map");if(!cur)return;const W=c.clientWidth||600,H=Math.round(W*.62),d=Math.min(2,devicePixelRatio||1);c.style.height=H+"px";c.width=W*d;c.height=H*d;const x=c.getContext("2d");x.scale(d,d);if(!relCanvas||relCanvas.width!==Math.round(W*d))relCanvas=buildRelief(Math.round(W*d),Math.round(H*d));x.drawImage(relCanvas,0,0,W,H);
+ const px=i=>[world.x[i]*W,(1-world.y[i])*H],ink3=css("--ink3"),ink2=css("--ink2"),sel=css("--sel"),ref=css("--ref"),sheet=css("--sheet");
+ x.fillStyle=ink3;x.globalAlpha=.75;for(const i of cur.T){const[a,b]=px(i);x.beginPath();x.arc(a,b,1.4,0,6.3);x.fill()}x.globalAlpha=1;
+ const inR=new Set(cur.R);x.lineWidth=1;x.strokeStyle=ink2;for(const i of cur.A){if(inR.has(i))continue;const[a,b]=px(i);x.beginPath();x.arc(a,b,2.2,0,6.3);x.stroke()}
+ for(const i of cur.R){const[a,b]=px(i);x.beginPath();x.arc(a,b,3.6,0,6.3);x.fillStyle=ref;x.fill();x.lineWidth=1;x.strokeStyle=sheet;x.stroke()}
+ for(const i of cur.S){const[a,b]=px(i);x.beginPath();x.arc(a,b,4,0,6.3);x.fillStyle=sel;x.fill();x.lineWidth=1;x.strokeStyle=sheet;x.stroke()}}
+
+// ---- lab
+let cur=null,acc=null,running=0,seedN=1;
+function par(){return{rule:$("rule").value,share:+$("share").value/100,n:+$("audit").value,scaled:$("score").value==="scaled"}}
+function resetAcc(){acc={t:0,all:0,k:0,cs:0,cj:0,inf:0,rs:0,wj:0,wj0:0}}
+function add(t){acc.t++;acc.all+=t.covAll;acc.k+=t.k;acc.cs+=t.cs;acc.cj+=t.cj;acc.inf+=t.inf;acc.rs+=t.rs;acc.wj+=t.wj;acc.wj0+=t.wj0}
+function drawBars(){const el=$("bars");el.innerHTML="";const W=el.clientWidth||420;const rows=[["Split CP, all candidates",acc.all/acc.t,"var(--ink3)"],["Split CP, selected",acc.cs/acc.k,"var(--org)"],["JOMI, selected",acc.cj/acc.k,"var(--ref)"]];const lw=Math.min(170,W*.42),H=rows.length*30+22;const s=E("svg",{viewBox:`0 0 ${W} ${H}`,height:H,role:"img"},el);const X=v=>lw+v*(W-lw-46);
+ rows.forEach((r,i)=>{const y=i*30;E("text",{x:0,y:y+15},s,r[0]);E("rect",{x:lw,y:y+4,width:X(1)-lw,height:16,fill:"var(--wash)"},s);const b=E("rect",{x:lw,y:y+4,width:Math.max(0,X(r[1])-lw),height:16,fill:r[2],rx:2},s);E("text",{x:X(1)+6,y:y+16,class:"num"},s,fmt(r[1]));hover(b,`${r[0]}: coverage ${fmt(r[1],3)} over ${acc.t} audits`)});
+ E("line",{x1:X(.9),x2:X(.9),y1:0,y2:rows.length*30,stroke:"var(--ink)","stroke-width":1.5,"stroke-dasharray":"3 2"},s);E("text",{x:X(.9),y:H-5,"text-anchor":"middle"},s,"target 0.90");
+ $("sInf").textContent=Math.round(100*acc.inf/acc.k)+"%";$("sR").textContent=int(acc.rs/acc.k);$("sW").textContent=acc.wj0?fmt(acc.wj/acc.wj0,1)+"×":"–";$("runs").textContent=int(acc.t)+" audits so far"}
+function drawErrs(){const el=$("errs");el.innerHTML="";if(!cur)return;const W=el.clientWidth||420,H=170,L=40,B=20;const u=cur.units.slice().sort((a,b)=>a.mu-b.mu);const lim=Math.max(1e-6,cur.qs*1.6,...u.map(a=>Math.abs(a.e)))*1.08;const s=E("svg",{viewBox:`0 0 ${W} ${H}`,height:H,role:"img","aria-label":"Errors at selected places against intervals"},el);const X=i=>L+(i+.5)/Math.max(u.length,1)*(W-L-6),Y=v=>(H-B)/2-v/lim*(H-B)/2+2;
+ E("rect",{x:L,y:Y(cur.qs),width:W-L-6,height:Y(-cur.qs)-Y(cur.qs),fill:"var(--band)"},s);E("line",{x1:L,x2:W-6,y1:Y(0),y2:Y(0),class:"ax"},s);E("text",{x:L-6,y:Y(0)+4,"text-anchor":"end",class:"num"},s,"0");
+ E("text",{x:0,y:12},s,par().scaled?"Error / spread":"Error");E("text",{x:L,y:H-4},s,"Selected places, lowest to highest prediction");
+ const bw=Math.max(1.5,Math.min(3,(W-L)/u.length*.3));u.forEach((a,i)=>{const fin=Number.isFinite(a.q),t=fin?Math.min(lim,a.q):lim;E("line",{x1:X(i),x2:X(i),y1:Y(t),y2:Y(-t),stroke:"var(--ref)","stroke-width":bw,opacity:fin?.75:.3},s);const out=Math.abs(a.e)>cur.qs;const c=E("circle",{cx:X(i),cy:Y(Math.max(-lim,Math.min(lim,a.e))),r:3.2,fill:out?"var(--miss)":"var(--ink2)",stroke:"var(--sheet)","stroke-width":1},s);hover(c,`Error ${fmt(a.e)}. Split CP ±${fmt(cur.qs)}; JOMI ±${fmt(a.q)}.`)})}
+function newAudit(){cur=trial(world,par(),seedN++);drawMap();drawErrs()}
+function runMany(n,done){const id=++running;let left=n;const p=par();const step=()=>{if(id!==running)return;const t0=performance.now();while(left>0&&performance.now()-t0<14){add(trial(world,p,seedN++));left--}drawBars();if(left>0)setTimeout(step,0);else if(done)done()};step()}
+function refresh(){$("shareO").textContent=$("share").value+"%";$("auditO").textContent=int(+$("audit").value);$("growthO").textContent=(+$("growth").value/100).toFixed(2);world=makeWorld(+$("growth").value/100*.55);resetAcc();add(trial(world,par(),seedN++));newAudit();drawBars();runMany(240)}
+["rule","share","audit","growth","score"].forEach(i=>$(i).addEventListener("input",refresh));
+$("redraw").addEventListener("click",newAudit);$("run").addEventListener("click",()=>runMany(400));
+
+// ---- swap explainer
+const sw={K:3,pick:null,cand:[.08,.17,.24,.33,.41,.47,.55,.62,.68,.74,.81,.89,.95],aud:[.05,.13,.21,.3,.38,.44,.52,.58,.65,.71,.78,.85,.92]};
+function drawSwap(){const el=$("swapPlot");el.innerHTML="";const W=el.clientWidth||900,H=W<560?170:150,L=W<560?60:92,R=10,yC=38,yA=H-56;const s=E("svg",{viewBox:`0 0 ${W} ${H}`,height:H,role:"img","aria-label":"Candidates and audited places ordered by predicted value"},el);const X=v=>L+v*(W-L-R);
+ const K=sw.K,sorted=sw.cand.slice().sort((a,b)=>b-a),theta=sorted[K],selSet=new Set(sorted.slice(0,K));
+ E("text",{x:0,y:yC+4},s,"Candidates");E("text",{x:0,y:yA+4},s,"Audited");E("line",{x1:L,x2:W-R,y1:yC,y2:yC,class:"gl"},s);E("line",{x1:L,x2:W-R,y1:yA,y2:yA,class:"gl"},s);E("line",{x1:L,x2:W-R,y1:H-20,y2:H-20,class:"ax"},s);E("text",{x:(L+W-R)/2,y:H-4,"text-anchor":"middle"},s,"Predicted value, low to high");
+ E("line",{x1:X(theta),x2:X(theta),y1:yC-20,y2:H-20,stroke:"var(--ink)","stroke-width":1.5,"stroke-dasharray":"3 3"},s);E("text",{x:X(theta)-5,y:14,"text-anchor":"end"},s,"First candidate left out");
+ sw.cand.forEach(v=>{E("circle",{cx:X(v),cy:yC,r:selSet.has(v)?8:5,fill:selSet.has(v)?"var(--sel)":"var(--ink3)",stroke:"var(--sheet)","stroke-width":1.5},s)});
+ sw.aud.forEach((v,i)=>{const inR=v>theta,g=E("g",{class:"swapdot",tabindex:0,role:"button","aria-label":`Audited place at ${v}`},s),isP=sw.pick===i;E("circle",{cx:X(v),cy:yA,r:isP?9:7,fill:inR?"var(--ref)":"var(--sheet)",stroke:inR?"var(--sheet)":"var(--ink2)","stroke-width":isP?2.5:1.5},g);E("circle",{cx:X(v),cy:yA,r:14,fill:"transparent"},g);const act=()=>{sw.pick=i;drawSwap()};g.addEventListener("click",act);g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();act()}})});
+ if(sw.pick!==null){const v=sw.aud[sw.pick],j=sorted[0];const p=E("path",{d:`M${X(v)},${yA-9} C${X(v)},${(yA+yC)/2} ${X(j)},${(yA+yC)/2} ${X(j)},${yC+9}`,fill:"none",stroke:"var(--ink)","stroke-width":1.5},s);const ok=v>theta;$("swapText").textContent=ok?`This audited place passes. Swapped into a selected slot, its prediction would still rank in the top ${K}, so it joins the reference set.`:`This audited place fails. Swapped into a selected slot, its prediction would fall below the first candidate left out, so the rule would not select it, and its error says little about the selected places.`}else $("swapText").textContent="Click an audited place to try the swap."}
+$("swapK").addEventListener("input",e=>{sw.K=+e.target.value;$("swapKO").textContent=sw.K;drawSwap()});$("swapKO").textContent=sw.K;
+
+// ---- generic chart
+function chart(el,{H=280,xs,ys,xlog,ylog,xt,yt,xlab,ylab,fx,fy,L=52}){el.innerHTML="";const W=el.clientWidth||460,B=40,T=8,R=12;const s=E("svg",{viewBox:`0 0 ${W} ${H}`,height:H,role:"img"},el);const sc=(d,r,l)=>{const a=l?Math.log10(d[0]):d[0],b=l?Math.log10(d[1]):d[1];return v=>r[0]+((l?Math.log10(v):v)-a)/(b-a)*(r[1]-r[0])};const X=sc(xs,[L,W-R],xlog),Y=sc(ys,[H-B,T],ylog);
+ yt.forEach(v=>{E("line",{x1:L,x2:W-R,y1:Y(v),y2:Y(v),class:"gl"},s);E("text",{x:L-6,y:Y(v)+4,"text-anchor":"end",class:"num"},s,fy(v))});xt.forEach(v=>{E("line",{x1:X(v),x2:X(v),y1:H-B,y2:H-B+4,class:"ax"},s);E("text",{x:X(v),y:H-B+17,"text-anchor":"middle",class:"num"},s,fx(v))});E("line",{x1:L,x2:W-R,y1:H-B,y2:H-B,class:"ax"},s);E("text",{x:(L+W-R)/2,y:H-3,"text-anchor":"middle"},s,xlab);if(ylab)E("text",{x:0,y:-1+T,"text-anchor":"start"},s,"");if(ylab){const t=E("text",{transform:`translate(11,${(H-B+T)/2}) rotate(-90)`,"text-anchor":"middle"},s,ylab)}
+ return{s,X,Y,W,H,B,T,L,R}}
+function linePath(pts,X,Y){return pts.map((p,i)=>(i?"L":"M")+X(p[0]).toFixed(1)+","+Y(p[1]).toFixed(1)).join("")}
+function crosshair(c,series,fmtTip){const r=E("rect",{x:c.L,y:c.T,width:c.W-c.L-c.R,height:c.H-c.B-c.T,fill:"transparent"},c.s);const v=E("line",{y1:c.T,y2:c.H-c.B,class:"ax",opacity:0},c.s);r.addEventListener("pointermove",e=>{const b=c.s.getBoundingClientRect(),px=(e.clientX-b.left)/b.width*c.W;const pts=series[0].pts;let best=0,bd=1e9;pts.forEach((p,i)=>{const d=Math.abs(c.X(p[0])-px);if(d<bd){bd=d;best=i}});const xv=pts[best][0];v.setAttribute("x1",c.X(xv));v.setAttribute("x2",c.X(xv));v.setAttribute("opacity",1);showTip(e,fmtTip(xv,best))});r.addEventListener("pointerleave",()=>{v.setAttribute("opacity",0);hideTip()})}
+
+// ---- planner
+function drawPlan(){const pop=Math.max(100,+$("pPop").value||6000),K=Math.max(1,Math.min(+$("pK").value||30,Math.floor(pop/3))),prob=+$("pProb").value;
+ const strata=[[1,"Whole map","var(--ink3)"],[.2,"Highest 20%","var(--grn)"],[.1,"Highest 10%","var(--org)"],[.05,"Highest 5%","var(--ref)"]].filter(a=>Math.round(a[0]*pop)>K+12);
+ const need=strata.map(a=>nBudget(Math.round(a[0]*pop),K,prob));const stats=$("planStats");stats.innerHTML="";strata.forEach((a,i)=>{const d=document.createElement("div");d.className="stat";d.innerHTML=`<b>${need[i]==null?"none":int(need[i])}</b><span>${a[1]}${need[i]==null?": no audit reaches this":""}</span>`;stats.appendChild(d)});
+ const xmin=10,xmax=Math.max(1000,pop-K-1);const c=chart($("planPlot"),{xs:[xmin,xmax],ys:[0,1],xlog:true,xt:(()=>{const t=[];for(let e=1;10**e<=xmax;e++)t.push(10**e);return t})(),yt:[0,.25,.5,.75,1],fx:v=>v>=1e5?sup(Math.log10(v)):int(v),fy:v=>v.toFixed(2),xlab:"Audited places",ylab:"Chance of finite intervals"});
+ E("line",{x1:c.L,x2:c.W-c.R,y1:c.Y(prob),y2:c.Y(prob),stroke:"var(--ink)","stroke-dasharray":"3 3"},c.s);const leg=$("planLegend");leg.innerHTML="";const ser=[];
+ strata.forEach((a,i)=>{const M=Math.round(a[0]*pop),top=M-K-1,pts=[];for(let k=0;k<=90;k++){const n=Math.round(xmin*Math.pow(top/xmin,k/90));if(n>=xmin&&n<=top&&(!pts.length||pts[pts.length-1][0]!==n))pts.push([n,pFinite(n,M-n,K)])}if(!pts.length)return;E("path",{d:linePath(pts,c.X,c.Y),fill:"none",stroke:a[2],"stroke-width":2,"stroke-linejoin":"round"},c.s);if(need[i]!=null){const mk=E("circle",{cx:c.X(need[i]),cy:c.Y(pFinite(need[i],M-need[i],K)),r:5,fill:a[2],stroke:"var(--sheet)","stroke-width":2},c.s);hover(mk,`${a[1]}: ${int(need[i])} audited places`)}ser.push({pts,a});const sp=document.createElement("span");sp.innerHTML=`<i class="l" style="background:${a[2]}"></i>${a[1]}`;leg.appendChild(sp)});
+ const m0=Math.max(pop,3000),Mu=Math.max(1,+$("fM").value||3),tg=+$("fT").value;const kk=Math.max(Mu,K);const f=nFloor(m0,Math.min(kk,m0-1),Mu,tg);$("fN").textContent=f==null?"none":int(f)}
+["pPop","pK","pProb","fM","fT"].forEach(i=>$(i).addEventListener("input",drawPlan));
+
+// ---- evidence
+const METHODS=[...new Set(DATA.cov.map(d=>d.m))].filter(m=>m!=="JOMI"&&m!=="SC-GeoCCP");
+$("covM").innerHTML=METHODS.map(m=>`<option>${m}</option>`).join("");
+function drawCov(){const m=$("covM").value;$("covLab").textContent=m;const by=s=>DATA.cov.filter(d=>d.m===s);const a=by(m),j=by("JOMI");const rows=j.map(r=>({s:r.s,j:r.c,inf:r.i,o:(a.find(x=>x.s===r.s)||{}).c})).sort((p,q)=>(p.o??1)-(q.o??1));const el=$("covPlot");el.innerHTML="";const W=el.clientWidth||460,rh=25,H=rows.length*rh+38,L=Math.min(158,W*.38),R=14;const s=E("svg",{viewBox:`0 0 ${W} ${H}`,height:H,role:"img"},el);const X=v=>L+(v-.3)/.72*(W-L-R);
+ [.4,.6,.8,1].forEach(v=>{E("line",{x1:X(v),x2:X(v),y1:0,y2:rows.length*rh,class:"gl"},s);E("text",{x:X(v),y:rows.length*rh+15,"text-anchor":"middle",class:"num"},s,v.toFixed(1))});E("line",{x1:X(.9),x2:X(.9),y1:0,y2:rows.length*rh,stroke:"var(--ink3)","stroke-width":1.5},s);E("text",{x:(L+W-R)/2,y:H-3,"text-anchor":"middle"},s,"Coverage at selected units");
+ rows.forEach((r,i)=>{const y=i*rh+rh/2;E("text",{x:0,y:y+4},s,r.s);if(r.o!=null){E("line",{x1:X(r.o),x2:X(r.j),y1:y,y2:y,stroke:"var(--ink3)","stroke-width":1},s);const c=E("circle",{cx:X(r.o),cy:y,r:5,fill:"var(--org)",stroke:"var(--sheet)","stroke-width":2},s);hover(c,`${r.s}, ${m}: ${fmt(r.o,3)}`)}const c=E("circle",{cx:X(r.j),cy:y,r:5,fill:"var(--ref)",stroke:"var(--sheet)","stroke-width":2},s);hover(c,`${r.s}, JOMI: ${fmt(r.j,3)}; ${Math.round(r.inf*100)}% infinite`)});
+ $("covTab").innerHTML=`<table><thead><tr><th>Setting</th><th class="n">${m}</th><th class="n">JOMI</th><th class="n">Infinite</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${r.s}</td><td class="n">${r.o==null?"–":fmt(r.o,3)}</td><td class="n">${fmt(r.j,3)}</td><td class="n">${Math.round(r.inf*100)}%</td></tr>`).join("")}</tbody></table>`}
+$("covM").addEventListener("input",drawCov);
+$("riskM").innerHTML=Object.keys(DATA.risk).sort((a,b)=>a.startsWith("Site attr")?-1:1).map(m=>`<option>${m}</option>`).join("");
+function drawRisk(){const d=DATA.risk[$("riskM").value];const S=[["Survey-calibrated estimate","var(--org)"],["Map error layer","var(--ink3)"],["Selection-aware estimate (ours)","var(--ref)"]];const c=chart($("riskPlot"),{xs:[0,.5],ys:[0,1],xt:[0,.1,.2,.3,.4,.5],yt:[0,.25,.5,.75,1],fx:v=>v.toFixed(1),fy:v=>v.toFixed(2),xlab:"Declared over-crediting risk",ylab:"Realized risk"});
+ E("line",{x1:c.X(0),y1:c.Y(0),x2:c.X(.5),y2:c.Y(.5),stroke:"var(--ink)","stroke-dasharray":"3 3"},c.s);S.forEach(([k,col])=>E("path",{d:linePath(d[k],c.X,c.Y),fill:"none",stroke:col,"stroke-width":2},c.s));const ser=[{pts:d[S[0][0]]}];crosshair(c,ser,(x,i)=>`Declared ${x.toFixed(3)}<br>Survey-calibrated ${d[S[0][0]][i][1].toFixed(3)}<br>Map layer ${d[S[1][0]][i][1].toFixed(3)}<br>Selection-aware ${d[S[2][0]][i][1].toFixed(3)}`)}
+$("riskM").addEventListener("input",drawRisk);
+function drawFloor(){const c=chart($("floorPlot"),{xs:[.35,1],ys:[.35,1],xt:[.4,.6,.8,1],yt:[.4,.6,.8,1],fx:v=>v.toFixed(1),fy:v=>v.toFixed(1),xlab:"Floor guaranteed for the country",ylab:"Coverage observed"});E("line",{x1:c.X(.35),y1:c.Y(.35),x2:c.X(1),y2:c.Y(1),stroke:"var(--ink3)","stroke-width":1.5},c.s);DATA.floor.forEach(d=>{const m=E("circle",{cx:c.X(d.f),cy:c.Y(d.c),r:5,fill:"var(--vio)",stroke:"var(--sheet)","stroke-width":2},c.s);hover(m,`${d.n}: floor ${fmt(d.f)}, coverage ${fmt(d.c)}; ${d.k} villages selected per audit`)});$("floorTab").innerHTML=`<table><thead><tr><th>Country</th><th class="n">Selected</th><th class="n">Floor</th><th class="n">Coverage</th></tr></thead><tbody>${DATA.floor.slice().sort((a,b)=>a.f-b.f).map(d=>`<tr><td>${d.n}</td><td class="n">${d.k}</td><td class="n">${fmt(d.f)}</td><td class="n">${fmt(d.c)}</td></tr>`).join("")}</tbody></table>`}
+function drawArms(){const lab=q=>q===1?"Whole map":`Highest ${Math.round(q*100)}%`;const keep=DATA.arms.filter(a=>(a.q===1&&(a.n===3000||a.n===1869))||(a.q===.1&&a.n===186)||(a.q===.05&&a.n===92));const order=[[1,3000],[1,1869],[.1,186],[.05,92]];const row=(mp)=>order.map(([q,n])=>keep.find(a=>a.map===mp&&a.q===q&&a.n===n));const fx=a=>`<tr><td>${lab(a.q)}, ${int(a.n)}</td><td class="n">${fmt(a.fin)}</td><td class="n">${fmt(a.risk)}</td><td class="n">${fmt(a.survey)}</td><td class="n">${fmt(a.share)}</td></tr>`;$("armTab").innerHTML=`<table><thead><tr><th>Audit</th><th class="n">Finite</th><th class="n">Risk, selection-aware</th><th class="n">Risk, survey</th><th class="n">Credit</th></tr></thead><tbody><tr><td colspan="5"><b>Site-attribute maps</b></td></tr>${row("site").map(fx).join("")}<tr><td colspan="5"><b>ESA CCI</b></td></tr>${row("cci").map(fx).join("")}</tbody></table>`}
+function drawBench(){const seen=new Set(),B=DATA.bench.filter(d=>{const k=d.rule+d.m;if(seen.has(k))return false;seen.add(k);return true});const c=chart($("benchPlot"),{xs:[1e3,1e8],ys:[1e-6,1e12],xlog:true,ylog:true,xt:[1e3,1e4,1e5,1e6,1e7,1e8],yt:[1e-5,1e-2,1e1,1e4,1e7,1e10],fx:v=>sup(Math.round(Math.log10(v))),fy:v=>sup(Math.round(Math.log10(v))),xlab:"Candidates",ylab:"Seconds"});const line=(pts,col,dash,lab)=>{E("path",{d:linePath(pts,c.X,c.Y),fill:"none",stroke:col,"stroke-width":2,...(dash?{"stroke-dasharray":"5 4"}:{})},c.s);pts.forEach(p=>{const m=E("circle",{cx:c.X(p[0]),cy:c.Y(p[1]),r:4,fill:col,stroke:"var(--sheet)","stroke-width":1.5},c.s);hover(m,`${lab}, ${sup(Math.round(Math.log10(p[0])))} candidates: ${sec(p[1])}${dash?" (estimated)":""}`)})};const R=r=>B.filter(d=>d.rule===r);line(R("budget").filter(d=>d.swap).map(d=>[d.m,d.swap]),"var(--ink3)",true,"Literal swaps");line(R("budget").filter(d=>d.comp).map(d=>[d.m,d.comp]),"var(--org)",true,"Per-unit loop");line(R("budget").map(d=>[d.m,d.ours]),"var(--ref)",false,"Budget");line(R("quota").map(d=>[d.m,d.ours]),"var(--vio)",false,"Quota");line(R("top_k").map(d=>[d.m,d.ours]),"var(--grn)",false,"Top-K")}
+function drawLP(){const c=chart($("lpPlot"),{xs:[100,1e5],ys:[1e-3,30],xlog:true,ylog:true,xt:[100,1e3,1e4,1e5],yt:[1e-3,1e-2,.1,1,10],fx:v=>sup(Math.round(Math.log10(v))),fy:v=>v>=1?String(v):String(v),xlab:"Places in the reference set",ylab:"Seconds per place"});[["published","var(--ink3)","Earlier dense code"],["primal","var(--org)","Sparse primal"],["dual","var(--vio)","Full dual"],["active","var(--ref)","Active set, warm"]].forEach(([f,col,lab])=>{const pts=DATA.lp.filter(d=>d.f===f).sort((a,b)=>a.n-b.n).map(d=>[d.n,d.t]);E("path",{d:linePath(pts,c.X,c.Y),fill:"none",stroke:col,"stroke-width":2},c.s);pts.forEach(p=>{const m=E("circle",{cx:c.X(p[0]),cy:c.Y(p[1]),r:4,fill:col,stroke:"var(--sheet)","stroke-width":1.5},c.s);hover(m,`${lab}, ${int(p[0])} places: ${sec(p[1])}`)})})}
+
+// ---- stricter rules, animated
+const SH={now:20,shown:null,anim:0};
+function shareRows(p){const by={};DATA.share.filter(d=>d.p===p).forEach(d=>{(by[d.s]=by[d.s]||{})[d.m]=d});return by}
+const SHORDER=[...new Set(DATA.share.map(d=>d.s))];
+function drawShare(from,to,t){const el=$("sharePlot");const W=el.clientWidth||460,rh=24,H=SHORDER.length*rh+36,L=Math.min(158,W*.38),R=14;el.innerHTML="";const s=E("svg",{viewBox:`0 0 ${W} ${H}`,height:H,role:"img","aria-label":"Coverage by data source and method"},el);const X=v=>L+(v-.2)/.82*(W-L-R);
+ [.2,.4,.6,.8,1].forEach(v=>{E("line",{x1:X(v),x2:X(v),y1:0,y2:SHORDER.length*rh,class:"gl"},s);E("text",{x:X(v),y:SHORDER.length*rh+15,"text-anchor":"middle",class:"num"},s,v.toFixed(1))});E("line",{x1:X(.9),x2:X(.9),y1:0,y2:SHORDER.length*rh,stroke:"var(--ink3)","stroke-width":1.5},s);E("text",{x:(L+W-R)/2,y:H-3,"text-anchor":"middle"},s,"Coverage at selected places");
+ const A=shareRows(from),B=shareRows(to),k=t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+ SHORDER.forEach((name,i)=>{const y=i*rh+rh/2;E("text",{x:0,y:y+4},s,name);[["GeoCP","var(--org)"],["Normalized CP","var(--ink2)"],["JOMI","var(--ref)"]].forEach(([m,col])=>{const a=A[name]&&A[name][m],b=B[name]&&B[name][m];if(!a||!b)return;const v=a.c+(b.c-a.c)*k,inf=a.i+(b.i-a.i)*k;if(m==="JOMI"&&inf>0.005)E("rect",{x:X(.2),y:y-3,width:(X(1)-X(.2))*inf,height:6,fill:"var(--ref)",opacity:.18},s);const c=E("circle",{cx:X(Math.max(.2,v)),cy:y,r:5,fill:col,stroke:"var(--sheet)","stroke-width":2},s);hover(c,`${name}, ${m}, ${to}% selected: ${fmt(b.c,3)}${m==="JOMI"?`; ${Math.round(b.i*100)}% infinite`:""}`)})});$("shareNow").textContent=`${to}% selected`}
+function goShare(to){const from=SH.shown??to;if(matchMedia("(prefers-reduced-motion: reduce)").matches||from===to){SH.shown=to;drawShare(to,to,1);return}const id=++SH.anim,t0=performance.now(),dur=900;const f=now=>{if(id!==SH.anim)return;const t=Math.min(1,(now-t0)/dur);drawShare(from,to,t);if(t<1)requestAnimationFrame(f);else SH.shown=to};requestAnimationFrame(f);setTimeout(()=>{if(id===SH.anim&&SH.shown!==to){SH.anim++;drawShare(to,to,1);SH.shown=to}},dur+120)}
+document.querySelectorAll("[data-share]").forEach(b=>b.addEventListener("click",()=>{SH.play=false;$("sharePlay").textContent="Play";goShare(+b.dataset.share)}));
+$("sharePlay").addEventListener("click",()=>{if(SH.play){SH.play=false;$("sharePlay").textContent="Play";return}SH.play=true;$("sharePlay").textContent="Pause";const seq=[20,5,1];let k=(seq.indexOf(SH.shown)+1)%3;const tick=()=>{if(!SH.play)return;goShare(seq[k]);k=(k+1)%3;setTimeout(tick,1900)};tick()});
+
+// ---- FIA lab on real plots
+const F=DATA.fia,FM=F.y.length,fst={acc:null,cur:null,run:0,seed:1,hist:[]};
+function vcs(est,se){const U=est>0?1.6449*se/est:Infinity;return U>1?0:(U<=.1?est:est-.4307*se)}
+function mean(a){let s=0;for(const v of a)s+=v;return s/a.length}
+function sd(a){const m=mean(a);let s=0;for(const v of a)s+=(v-m)**2;return Math.sqrt(s/(a.length-1))}
+function fiaTrial(mp,share,audit,seed){const mu=F[mp].mu,sg=F[mp].s,y=F.y,r=rng(seed),p=shuffle(FM,r),n=Math.round(audit*FM),C=p.slice(0,n),T=p.slice(n);const K=Math.max(1,Math.round(share*T.length));const o=T.slice().sort((a,b)=>mu[b]-mu[a]),J=o.slice(0,K),th=mu[o[K]],R=C.filter(i=>mu[i]>th);
+ const S=i=>Math.abs(y[i]-mu[i])/sg[i],qs=jomiQ(C.map(S)),qj=jomiQ(R.map(S));let cs=0,cj=0;for(const j of J){if(S(j)<=qs)cs++;if(S(j)<=qj)cj++}
+ let est=0,tot=0;for(const j of J){est+=mu[j];tot+=y[j]}const eC=C.map(i=>y[i]-mu[i]),eR=R.map(i=>y[i]-mu[i]);const ma=est+K*mean(eC),seMa=sd(eC)*Math.sqrt(K+K*K/n);
+ let saOver=0;if(R.length>=2){const sa=est+K*mean(eR),se=K*sd(eR)*Math.sqrt((R.length+K)/(R.length*K));saOver=Math.max(0,sa-.4307*se)>tot?1:0}
+ return{C,J,R,K,cs,cj,inf:Number.isFinite(qj)?0:K,maOver:vcs(ma,seMa)>tot?1:0,saOver}}
+let fiaBg=null;
+function proj(lon,lat,W,H){const b=[-125,-66,24.3,49.6],k=Math.cos(38*Math.PI/180),sx=W/((b[1]-b[0])*k),sy=H/(b[3]-b[2]),s=Math.min(sx,sy),ox=(W-(b[1]-b[0])*k*s)/2,oy=(H-(b[3]-b[2])*s)/2;return[ox+(lon-b[0])*k*s,oy+(b[3]-lat)*s]}
+function drawFiaMap(){const c=$("fiaMap"),W=c.clientWidth||600,H=Math.round(W*.6),d=Math.min(2,devicePixelRatio||1);c.style.height=H+"px";c.width=W*d;c.height=H*d;const x=c.getContext("2d");x.scale(d,d);x.fillStyle=css("--wash");x.fillRect(0,0,W,H);
+ DATA.us.forEach(st=>{x.beginPath();st.p.forEach(poly=>poly.forEach(rg=>{rg.forEach((pt,i)=>{const[a,b]=proj(pt[0],pt[1],W,H);i?x.lineTo(a,b):x.moveTo(a,b)});x.closePath()}));x.fillStyle=st.fia?css("--sheet"):css("--wash");x.fill();x.strokeStyle=css("--line");x.lineWidth=st.fia?1:.6;x.stroke()});
+ const mp=$("fMap").value,mu=F[mp].mu,lo=Math.min(...mu),hi=Math.max(...mu),g=css("--grn");x.fillStyle=g;for(let i=0;i<FM;i++){const[a,b]=proj(F.lon[i],F.lat[i],W,H);x.globalAlpha=.18+.72*Math.sqrt((mu[i]-lo)/(hi-lo));x.fillRect(a-.9,b-.9,1.8,1.8)}x.globalAlpha=1;
+ const t=fst.cur;if(!t)return;const dot=(i,rad,col)=>{const[a,b]=proj(F.lon[i],F.lat[i],W,H);x.beginPath();x.arc(a,b,rad,0,6.3);x.fillStyle=col;x.fill();x.lineWidth=1;x.strokeStyle=css("--sheet");x.stroke()};t.R.forEach(i=>dot(i,2.6,css("--ref")));t.J.forEach(i=>dot(i,3.4,css("--sel")))}
+function fiaPar(){return{mp:$("fMap").value,share:+$("fShare").value,audit:+$("fAudit").value/100}}
+function fiaReset(){fst.acc={t:0,k:0,cs:0,cj:0,inf:0,ma:0,sa:0};fst.hist=[];$("fAuditO").textContent=$("fAudit").value+"%"}
+function fiaAdd(t){const a=fst.acc;a.t++;a.k+=t.K;a.cs+=t.cs;a.cj+=t.cj;a.inf+=t.inf;a.ma+=t.maOver;a.sa+=t.saOver;fst.hist.push([a.t,a.ma/a.t,a.sa/a.t])}
+function drawFiaBars(){const el=$("fBars");el.innerHTML="";const a=fst.acc;if(!a||!a.t)return;const W=el.clientWidth||420,rows=[["Split CP",a.cs/a.k,"var(--org)"],["JOMI",a.cj/a.k,"var(--ref)"]],lw=Math.min(110,W*.3),H=rows.length*30+22;const s=E("svg",{viewBox:`0 0 ${W} ${H}`,height:H,role:"img"},el),X=v=>lw+v*(W-lw-46);
+ rows.forEach((r,i)=>{const y=i*30;E("text",{x:0,y:y+15},s,r[0]);E("rect",{x:lw,y:y+4,width:X(1)-lw,height:16,fill:"var(--wash)"},s);const b=E("rect",{x:lw,y:y+4,width:Math.max(0,X(r[1])-lw),height:16,fill:r[2],rx:2},s);E("text",{x:X(1)+6,y:y+16,class:"num"},s,fmt(r[1]));hover(b,`${r[0]} at the selected plots: ${fmt(r[1],3)}${r[0]==="JOMI"?`, ${Math.round(100*a.inf/a.k)}% infinite`:""}`)});E("line",{x1:X(.9),x2:X(.9),y1:0,y2:rows.length*30,stroke:"var(--ink)","stroke-width":1.5,"stroke-dasharray":"3 2"},s);E("text",{x:X(.9),y:H-5,"text-anchor":"middle"},s,"target 0.90");$("fRuns").textContent=int(a.t)+" audits"}
+function drawFiaRisk(){const h=fst.hist;const c=chart($("fRisk"),{H:220,xs:[0,Math.max(50,h.length?h[h.length-1][0]:50)],ys:[0,1],xt:(()=>{const m=Math.max(50,h.length?h[h.length-1][0]:50),st=m>200?100:25,t=[];for(let v=0;v<=m;v+=st)t.push(v);return t})(),yt:[0,1/3,.5,1],fx:v=>int(v),fy:v=>Math.abs(v-1/3)<1e-9?"1/3":v.toFixed(1),xlab:"Audits run",ylab:"Over-crediting risk"});
+ E("line",{x1:c.L,x2:c.W-c.R,y1:c.Y(1/3),y2:c.Y(1/3),stroke:"var(--ink)","stroke-width":1.5,"stroke-dasharray":"4 3"},c.s);if(h.length<2)return;const pts=k=>h.map(p=>[p[0],p[k]]);E("path",{d:linePath(pts(1),c.X,c.Y),fill:"none",stroke:"var(--org)","stroke-width":2},c.s);E("path",{d:linePath(pts(2),c.X,c.Y),fill:"none",stroke:"var(--ref)","stroke-width":2},c.s);const l=h[h.length-1];[[1,"var(--org)","Survey-calibrated"],[2,"var(--ref)","Selection-aware"]].forEach(([k,col,lab])=>{const m=E("circle",{cx:c.X(l[0]),cy:c.Y(l[k]),r:4.5,fill:col,stroke:"var(--sheet)","stroke-width":2},c.s);hover(m,`${lab}: ${fmt(l[k],3)} after ${int(l[0])} audits`)})}
+function fiaRun(n){const id=++fst.run,p=fiaPar();let left=n;const step=()=>{if(id!==fst.run)return;const t0=performance.now();while(left>0&&performance.now()-t0<14){const t=fiaTrial(p.mp,p.share,p.audit,fst.seed++);fiaAdd(t);fst.cur=t;left--}drawFiaBars();drawFiaRisk();if(left>0)setTimeout(step,0);else drawFiaMap()};step()}
+function fiaRefresh(){fst.run++;fiaReset();const p=fiaPar();fst.cur=fiaTrial(p.mp,p.share,p.audit,fst.seed++);fiaAdd(fst.cur);drawFiaMap();drawFiaBars();drawFiaRisk()}
+["fMap","fShare","fAudit"].forEach(i=>$(i).addEventListener("input",fiaRefresh));$("fRun").addEventListener("click",()=>fiaRun(300));$("fOne").addEventListener("click",()=>{const p=fiaPar();fst.cur=fiaTrial(p.mp,p.share,p.audit,fst.seed++);fiaAdd(fst.cur);drawFiaMap();drawFiaBars();drawFiaRisk()});
+
+// ---- countries, animated by method
+const CM=["Split CP","Normalized CP","GeoCP","JOMI","SC-GeoCCP"],CS={m:"Split CP",prev:null,anim:0};
+$("ctryBtns").innerHTML=CM.map(m=>`<button class="alt" data-m="${m}">${m}</button>`).join("");
+function covColor(v){if(v==null)return css("--wash");if(v<.85)return css("--miss");if(v<.9)return "#e8c9a8";if(v<=.95)return "#b9d3ee";return css("--ref")}
+function mixHex(a,b,t){const p=s=>{s=s.replace("#","");return[0,2,4].map(i=>parseInt(s.slice(i,i+2),16))};const A=p(a),B=p(b);return"#"+A.map((v,i)=>Math.round(v+(B[i]-v)*t).toString(16).padStart(2,"0")).join("")}
+function drawCtry(t){const el=$("ctryMap");const W=el.clientWidth||460,H=Math.round(W*.95);el.innerHTML="";const s=E("svg",{viewBox:`0 0 ${W} ${H}`,height:H,role:"img","aria-label":"Map of Africa coloured by coverage in each country"},el);const b=[-18,52,-35,38],sc=Math.min(W/(b[1]-b[0]),H/(b[3]-b[2])),ox=(W-(b[1]-b[0])*sc)/2,P=(lo,la)=>[ox+(lo-b[0])*sc,(b[3]-la)*sc];
+ const val=m=>{const o={};DATA.country.filter(d=>d.m===m).forEach(d=>o[d.iso]=d);return o},A=val(CS.prev||CS.m),B=val(CS.m);
+ DATA.africa.forEach(c=>{const d=c.p.map(poly=>poly.map(rg=>rg.map((pt,i)=>(i?"L":"M")+P(pt[0],pt[1]).map(v=>v.toFixed(1)).join(",")).join("")+"Z").join("")).join("");const a=A[c.iso],bb=B[c.iso];const col=bb?mixHex(covColor(a?a.c:bb.c),covColor(bb.c),t):css("--wash");const p=E("path",{d,fill:col,stroke:"var(--sheet)","stroke-width":.8},s);if(bb)hover(p,`${bb.n}: ${CS.m} covers ${fmt(bb.c,3)} of selected villages`)});
+ const vals=Object.values(B).map(d=>d.c);E("text",{x:W-4,y:16,"text-anchor":"end"},s,`${CS.m}: ${vals.filter(v=>v<.85).length} of ${vals.length} below 0.85`);
+ document.querySelectorAll("#ctryBtns button").forEach(x=>x.setAttribute("aria-pressed",x.dataset.m===CS.m))}
+function goCtry(m){CS.prev=CS.m;CS.m=m;if(matchMedia("(prefers-reduced-motion: reduce)").matches){drawCtry(1);return}const id=++CS.anim,t0=performance.now();const f=now=>{if(id!==CS.anim)return;const t=Math.min(1,(now-t0)/600);drawCtry(t);if(t<1)requestAnimationFrame(f);else CS.anim++};requestAnimationFrame(f);setTimeout(()=>{if(id===CS.anim){CS.anim++;drawCtry(1)}},720)}
+document.querySelectorAll("#ctryBtns button").forEach(b=>b.addEventListener("click",()=>goCtry(b.dataset.m)));
+window.__fia={fiaTrial,F};
+
+// ---- opening case: real FIA plots, site-attribute map, one default interval width
+const PB={share:.01,seed:7,avg:{}};
+function pTrial(share,seed){const mu=F.site.mu,y=F.y,r=rng(seed),p=shuffle(FM,r),n=Math.round(FM/2),C=p.slice(0,n),T=p.slice(n);const e=i=>y[i]-mu[i];const q=jomiQ(C.map(i=>Math.abs(e(i))));const K=Math.max(1,Math.round(share*T.length));const o=T.slice().sort((a,b)=>mu[b]-mu[a]),J=o.slice(0,K),th=mu[o[K]],R=C.filter(i=>mu[i]>th),qj=jomiQ(R.map(i=>Math.abs(e(i))));let all=0;for(const i of T)if(Math.abs(e(i))<=q)all++;let sel=0,jo=0;for(const j of J){if(Math.abs(e(j))<=q)sel++;if(Math.abs(e(j))<=qj)jo++}return{T,J,o,q,all:all/T.length,sel:sel/K,jo:jo/K}}
+function pAvg(share){if(!PB.avg[share]){let a=0,s=0,j=0;const N=300;for(let t=0;t<N;t++){const x=pTrial(share,9000+t);a+=x.all;s+=x.sel;j+=x.jo}PB.avg[share]={a:a/N,s:s/N,j:j/N}}return PB.avg[share]}
+function drawProblem(){const t=pTrial(PB.share,PB.seed),A=pAvg(PB.share),y=F.y,mu=F.site.mu;$("pAll").textContent=fmt(A.a);$("pSel").textContent=fmt(A.s);$("pJomi").textContent=fmt(A.j);
+ // map
+ {const c=$("pMap"),W=c.clientWidth||600,H=Math.round(W*.6),d=Math.min(2,devicePixelRatio||1);c.style.height=H+"px";c.width=W*d;c.height=H*d;const x=c.getContext("2d");x.scale(d,d);x.fillStyle=css("--wash");x.fillRect(0,0,W,H);
+  DATA.us.forEach(st=>{x.beginPath();st.p.forEach(poly=>poly.forEach(rg=>{rg.forEach((pt,i)=>{const[a,b]=proj(pt[0],pt[1],W,H);i?x.lineTo(a,b):x.moveTo(a,b)});x.closePath()}));x.fillStyle=st.fia?css("--sheet"):css("--wash");x.fill();x.strokeStyle=css("--line");x.lineWidth=st.fia?1:.6;x.stroke()});
+  const lo=Math.min(...mu),hi=Math.max(...mu);x.fillStyle=css("--grn");for(const i of t.T){const[a,b]=proj(F.lon[i],F.lat[i],W,H);x.globalAlpha=.15+.7*Math.sqrt((mu[i]-lo)/(hi-lo));x.fillRect(a-.9,b-.9,1.8,1.8)}x.globalAlpha=1;
+  for(const j of t.J){const[a,b]=proj(F.lon[j],F.lat[j],W,H),out=Math.abs(y[j]-mu[j])>t.q;x.beginPath();x.arc(a,b,3.4,0,6.3);x.fillStyle=css("--sel");x.fill();if(out){x.beginPath();x.arc(a,b,6,0,6.3);x.lineWidth=1.6;x.strokeStyle=css("--miss");x.stroke()}}}
+ // ranked errors
+ {const c=$("pErr"),W=c.clientWidth||460,H=Math.round(Math.min(320,W*.7)),d=Math.min(2,devicePixelRatio||1);c.style.height=H+"px";c.width=W*d;c.height=H*d;const x=c.getContext("2d");x.scale(d,d);x.fillStyle=css("--sheet");x.fillRect(0,0,W,H);
+  const L=46,B=30,Tp=10,R=8,n=t.o.length,lim=t.q*3.2,mx=mu[t.o[0]]*1.02,mn=Math.min(0,mu[t.o[n-1]]),X=k=>L+(mu[t.o[k]]-mn)/(mx-mn)*(W-L-R),Y=v=>Tp+(lim-Math.max(-lim,Math.min(lim,v)))/(2*lim)*(H-B-Tp);
+  const K=t.J.length;const xs=(X(K-1)+X(K))/2;x.fillStyle=css("--wash");x.fillRect(xs,Tp,W-R-xs,H-B-Tp);x.fillStyle=css("--band");x.fillRect(L,Y(t.q),W-L-R,Y(-t.q)-Y(t.q));
+  x.strokeStyle=css("--ink3");x.lineWidth=1;x.beginPath();x.moveTo(L,Y(0));x.lineTo(W-R,Y(0));x.stroke();
+  x.font="12px "+css("--mono");x.fillStyle=css("--ink2");x.textAlign="right";[-2,-1,0,1,2].forEach(k=>{const v=k*t.q*1.5;x.fillText(Math.round(v),L-5,Y(v)+4)});x.textAlign="left";x.font="13px "+css("--body");[0,100,200,300,400,500].filter(v=>v<=mx).forEach(v=>{const px=L+(v-mn)/(mx-mn)*(W-L-R);x.textAlign="center";x.font="12px "+css("--mono");x.fillText(v,px,H-B+14)});x.font="13px "+css("--body");x.textAlign="center";x.fillText("Predicted biomass (Mg/ha); error = measured minus predicted",(L+W-R)/2,H-3);
+  x.globalAlpha=.55;x.fillStyle=css("--ink3");for(let k=K;k<n;k++){const i=t.o[k];x.fillRect(X(k)-1,Y(y[i]-mu[i])-1,2,2)}x.globalAlpha=1;
+  PB.pts=[];for(let k=0;k<K;k++){const i=t.o[k],e=y[i]-mu[i],out=Math.abs(e)>t.q,px=X(k),py=Y(e);x.beginPath();x.arc(px,py,3.6,0,6.3);x.fillStyle=out?css("--miss"):css("--sel");x.fill();x.lineWidth=1;x.strokeStyle=css("--sheet");x.stroke();PB.pts.push([px,py,`Measured ${Math.round(y[i])} Mg/ha, predicted ${Math.round(mu[i])}; interval ±${Math.round(t.q)}`])}
+  x.textAlign="right";x.fillStyle=css("--ink2");x.fillText(`Selected: ${K} plots`,W-R-4,Tp+14)}}
+$("pErr").addEventListener("pointermove",e=>{const b=$("pErr").getBoundingClientRect(),px=e.clientX-b.left,py=e.clientY-b.top;let best=null,bd=64;(PB.pts||[]).forEach(p=>{const d=(p[0]-px)**2+(p[1]-py)**2;if(d<bd){bd=d;best=p}});best?showTip(e,best[2]):hideTip()});$("pErr").addEventListener("pointerleave",hideTip);
+document.querySelectorAll("[data-pshare]").forEach(b=>b.addEventListener("click",()=>{PB.share=+b.dataset.pshare;document.querySelectorAll("[data-pshare]").forEach(x=>x.setAttribute("aria-pressed",x===b));drawProblem()}));$("pNew").addEventListener("click",()=>{PB.seed++;drawProblem()});
+
+// ---- copy
+$("copy").addEventListener("click",()=>{const t=$("code").textContent;const ok=()=>{$("copied").textContent="Copied"};const no=()=>{const r=document.createRange();r.selectNodeContents($("code"));const s=getSelection();s.removeAllRanges();s.addRange(r);$("copied").textContent="Selected: press Ctrl or Cmd + C"};(navigator.clipboard?navigator.clipboard.writeText(t).then(ok,no):no())});
+
+// ---- boot and redraw on size or theme changes
+function drawStatic(){drawProblem();drawShare(SH.shown??20,SH.shown??20,1);SH.shown=SH.shown??20;drawCtry(1);drawFiaMap();drawFiaBars();drawFiaRisk();drawSwap();drawPlan();drawCov();drawRisk();drawFloor();drawArms();drawBench();drawLP()}
+function redrawAll(){relCanvas=null;drawMap();drawErrs();if(acc&&acc.t)drawBars();drawStatic()}
+let rt;addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(redrawAll,150)});
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",redrawAll);
+new MutationObserver(redrawAll).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
+window.__mapselect={pFinite,nBudget,nFixed,invMoment,floorAt,nFloor,trial,makeWorld,selectRule};
+fiaReset();refresh();fiaRefresh();drawStatic();fiaRun(200);
+</script>

@@ -1,0 +1,13 @@
+dataset,label,backbone,rule,method,key,coverage,ci_lo,ci_hi,inf_share
+poverty,DHS wealth,resnet,bottom5,Normalized CP,SCP stud,0.9151,0.9096,0.9206,0.0000
+poverty,DHS wealth,resnet,bottom5,GeoCP,GeoCP,0.9528,0.9492,0.9565,0.0000
+poverty,DHS wealth,resnet,bottom5,JOMI,JOMI stud,0.9002,0.8898,0.9106,0.0000
+poverty,DHS wealth,resnet,bottom5,RegionCP (ours),SC-GeoCCP,0.9165,0.9082,0.9248,0.0000
+m3leo,Biomass (ESA-CCI product),resnet,top5,Normalized CP,SCP stud,0.7695,0.7576,0.7814,0.0000
+m3leo,Biomass (ESA-CCI product),resnet,top5,GeoCP,GeoCP,0.7424,0.7325,0.7523,0.0000
+m3leo,Biomass (ESA-CCI product),resnet,top5,JOMI,JOMI stud,0.9014,0.8928,0.9100,0.0000
+m3leo,Biomass (ESA-CCI product),resnet,top5,RegionCP (ours),SC-GeoCCP,0.9127,0.9039,0.9216,0.0000
+floods,Flooded fraction,resnet,top5,Normalized CP,SCP stud,0.6895,0.6735,0.7054,0.0000
+floods,Flooded fraction,resnet,top5,GeoCP,GeoCP,0.4449,0.4229,0.4668,0.0000
+floods,Flooded fraction,resnet,top5,JOMI,JOMI stud,0.9174,0.9081,0.9266,0.0000
+floods,Flooded fraction,resnet,top5,RegionCP (ours),SC-GeoCCP,0.9309,0.9222,0.9397,0.0000

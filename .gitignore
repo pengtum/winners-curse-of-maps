@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.DS_Store
+.ipynb_checkpoints/
+
+# written by the scripts (the results archive is attached to the GitHub release)
+results/
+figs/*.pdf
+figs/*.png
+figs/*.svg
+figs/qa/
+website/upload/

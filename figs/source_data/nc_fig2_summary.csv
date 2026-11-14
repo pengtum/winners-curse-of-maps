@@ -1,0 +1,2 @@
+units,train,calibration,test,K,R,q_split,q_jomi,q_scgeoccp_min,q_scgeoccp_max,miss_split,miss_jomi,miss_scgeoccp,map_total,true_total,certified_total,delta,c_eligible,eligible,funded,funded_not_eligible,q
+375,150,112,113,20,28,1.4984,2.5084,2.5084,3.1762,6,1,0,14.3935,13.0713,9.6894,0.3333,0.6000,10,7,0,0.1000

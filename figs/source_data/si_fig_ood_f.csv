@@ -1,0 +1,17 @@
+rule,n,order,groups,cov,cov_fin,inf,width,design,label
+bottom25.2,all (half of the group),0,18,0.9055,0.9055,0.0000,0.5732,loco_poverty,DHS 25.2%
+bottom25.2,200,1,18,0.9087,0.9087,0.0000,0.5855,loco_poverty,DHS 25.2%
+bottom25.2,100,2,18,0.9187,0.9187,0.0000,0.6346,loco_poverty,DHS 25.2%
+bottom25.2,50,3,18,0.9298,0.9237,0.0796,0.7044,loco_poverty,DHS 25.2%
+bottom5,all (half of the group),0,18,0.9277,0.9208,0.0871,0.6108,loco_poverty,DHS 5%
+bottom5,200,1,18,0.9469,0.9203,0.3335,0.6300,loco_poverty,DHS 5%
+bottom5,100,2,18,0.9909,0.9158,0.8915,0.6594,loco_poverty,DHS 5%
+bottom5,50,3,18,0.9997,0.9020,0.9967,0.7642,loco_poverty,DHS 5%
+top20,all (half of the group),0,10,0.9020,0.9020,0.0000,158.7620,loso_fia_db_siteheight,FIA 20%
+top20,200,1,10,0.9137,0.9137,0.0000,169.3156,loso_fia_db_siteheight,FIA 20%
+top20,100,2,10,0.9222,0.9219,0.0043,188.0315,loso_fia_db_siteheight,FIA 20%
+top20,50,3,10,0.9424,0.9194,0.2854,196.6825,loso_fia_db_siteheight,FIA 20%
+top5,all (half of the group),0,10,0.9051,0.9044,0.0076,186.4851,loso_fia_db_siteheight,FIA 5%
+top5,200,1,10,0.9435,0.9176,0.3139,231.4584,loso_fia_db_siteheight,FIA 5%
+top5,100,2,10,0.9925,0.9006,0.9248,198.5364,loso_fia_db_siteheight,FIA 5%
+top5,50,3,10,0.9997,0.7869,0.9987,81.5317,loso_fia_db_siteheight,FIA 5%

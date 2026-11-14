@@ -1,0 +1,13 @@
+part,method,key,credited_over_true,share_plots_overcredited,project_overcredit_risk
+credit each plot,Map value μ,point,1.0458,0.5864,0.7035
+credit each plot,Normalized CP,SCP stud,0.1691,0.0427,0.0000
+credit each plot,GeoCP,GeoCP,0.4189,0.1646,0.0000
+credit each plot,QRF,QRF,0.1335,0.0345,0.0000
+credit each plot,Bootstrap,Bootstrap ensemble + residual,0.1968,0.0664,0.0000
+credit each plot,JOMI,JOMI stud,0.1108,0.0286,0.0000
+credit each plot,RegionCP (ours),SC-GeoCCP,0.1027,0.0267,0.0000
+credit the project,"Map total, no deduction",point,1.0458,,0.7035
+credit the project,"Protocol rule, map error layer",VCS map (RF),0.9994,,0.5115
+credit the project,"Protocol rule, survey-calibrated estimate",VCS model-assisted,1.0437,,0.6940
+credit the project,"Protocol rule, selection-aware estimate (ours)","ours: VCS formula, sel.-aware",0.9316,,0.3315
+credit the project,Exact selection-aware bound (ours),"ours: exact, risk VCS",0.6513,,0.0070

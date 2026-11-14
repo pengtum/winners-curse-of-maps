@@ -1,0 +1,67 @@
+dataset,method,key,scale,level,worst,noise_limit,groups,gap
+poverty,JOMI,JOMI stud,All selected,0,0.9030,0.9000,,0.0030
+poverty,JOMI,JOMI stud,State or country,1,0.7433,0.8721,23.0000,-0.1288
+poverty,JOMI,JOMI stud,Spatial cell,2,0.7660,0.8755,19.0000,-0.1095
+poverty,RegionCP (ours),SC-GeoCCP,All selected,0,0.9230,0.9000,,0.0230
+poverty,RegionCP (ours),SC-GeoCCP,State or country,1,0.8033,0.8721,23.0000,-0.0688
+poverty,RegionCP (ours),SC-GeoCCP,Spatial cell,2,0.8214,0.8755,19.0000,-0.0541
+poverty_lab,JOMI,JOMI stud,All selected,0,0.9031,0.9000,,0.0031
+poverty_lab,JOMI,JOMI stud,State or country,1,0.8036,0.8721,23.0000,-0.0685
+poverty_lab,JOMI,JOMI stud,Spatial cell,2,0.7244,0.8754,19.0000,-0.1510
+poverty_lab,RegionCP (ours),SC-GeoCCP,All selected,0,0.9229,0.9000,,0.0229
+poverty_lab,RegionCP (ours),SC-GeoCCP,State or country,1,0.8767,0.8721,23.0000,0.0046
+poverty_lab,RegionCP (ours),SC-GeoCCP,Spatial cell,2,0.8271,0.8754,19.0000,-0.0484
+fia_db,JOMI,JOMI stud,All selected,0,0.8992,0.9000,,-0.0008
+fia_db,JOMI,JOMI stud,State or country,1,0.7590,0.8855,10.0000,-0.1265
+fia_db,JOMI,JOMI stud,Spatial cell,2,0.7590,0.8689,19.0000,-0.1099
+fia_db,RegionCP (ours),SC-GeoCCP,All selected,0,0.9235,0.9000,,0.0235
+fia_db,RegionCP (ours),SC-GeoCCP,State or country,1,0.8667,0.8855,10.0000,-0.0188
+fia_db,RegionCP (ours),SC-GeoCCP,Spatial cell,2,0.8571,0.8689,19.0000,-0.0118
+camels,JOMI,JOMI stud,All selected,0,0.9382,0.9000,,0.0382
+camels,JOMI,JOMI stud,State or country,1,0.8300,0.8502,11.0000,-0.0202
+camels,JOMI,JOMI stud,Spatial cell,2,0.8265,0.8781,4.0000,-0.0516
+camels,RegionCP (ours),SC-GeoCCP,All selected,0,0.9409,0.9000,,0.0409
+camels,RegionCP (ours),SC-GeoCCP,State or country,1,0.8300,0.8502,11.0000,-0.0202
+camels,RegionCP (ours),SC-GeoCCP,Spatial cell,2,0.8265,0.8781,4.0000,-0.0516
+voting,JOMI,JOMI stud,All selected,0,0.8959,0.9000,,-0.0041
+voting,JOMI,JOMI stud,State or country,1,0.6900,0.8337,39.0000,-0.1437
+voting,JOMI,JOMI stud,Spatial cell,2,0.8160,0.8570,19.0000,-0.0410
+voting,RegionCP (ours),SC-GeoCCP,All selected,0,0.9132,0.9000,,0.0132
+voting,RegionCP (ours),SC-GeoCCP,State or country,1,0.6800,0.8337,39.0000,-0.1536
+voting,RegionCP (ours),SC-GeoCCP,Spatial cell,2,0.8466,0.8570,19.0000,-0.0104
+seattle,JOMI,JOMI stud,All selected,0,0.9107,0.9000,,0.0107
+seattle,JOMI,JOMI stud,State or country,1,0.8050,0.8848,6.0000,-0.0798
+seattle,JOMI,JOMI stud,Spatial cell,2,0.4545,0.8491,18.0000,-0.3946
+seattle,RegionCP (ours),SC-GeoCCP,All selected,0,0.9273,0.9000,,0.0273
+seattle,RegionCP (ours),SC-GeoCCP,State or country,1,0.8650,0.8848,6.0000,-0.0198
+seattle,RegionCP (ours),SC-GeoCCP,Spatial cell,2,0.5195,0.8491,18.0000,-0.3296
+era5,JOMI,JOMI stud,All selected,0,0.9008,0.9000,,0.0008
+era5,JOMI,JOMI stud,State or country,1,0.7615,0.8883,9.0000,-0.1268
+era5,JOMI,JOMI stud,Spatial cell,2,0.6491,0.8644,14.0000,-0.2153
+era5,RegionCP (ours),SC-GeoCCP,All selected,0,0.9186,0.9000,,0.0186
+era5,RegionCP (ours),SC-GeoCCP,State or country,1,0.8562,0.8883,9.0000,-0.0321
+era5,RegionCP (ours),SC-GeoCCP,Spatial cell,2,0.8099,0.8644,14.0000,-0.0546
+health_stroke,JOMI,JOMI stud,All selected,0,0.9159,0.9000,,0.0159
+health_stroke,JOMI,JOMI stud,State or country,1,0.4900,0.8378,29.0000,-0.3478
+health_stroke,JOMI,JOMI stud,Spatial cell,2,0.6979,0.8626,14.0000,-0.1647
+health_stroke,RegionCP (ours),SC-GeoCCP,All selected,0,0.9254,0.9000,,0.0254
+health_stroke,RegionCP (ours),SC-GeoCCP,State or country,1,0.6100,0.8378,29.0000,-0.2278
+health_stroke,RegionCP (ours),SC-GeoCCP,Spatial cell,2,0.7500,0.8626,14.0000,-0.1126
+health_diabetes,JOMI,JOMI stud,All selected,0,0.9035,0.9000,,0.0035
+health_diabetes,JOMI,JOMI stud,State or country,1,0.6750,0.8378,29.0000,-0.1628
+health_diabetes,JOMI,JOMI stud,Spatial cell,2,0.7368,0.8617,14.0000,-0.1249
+health_diabetes,RegionCP (ours),SC-GeoCCP,All selected,0,0.9200,0.9000,,0.0200
+health_diabetes,RegionCP (ours),SC-GeoCCP,State or country,1,0.7300,0.8378,29.0000,-0.1078
+health_diabetes,RegionCP (ours),SC-GeoCCP,Spatial cell,2,0.7464,0.8617,14.0000,-0.1153
+health_bphigh,JOMI,JOMI stud,All selected,0,0.9181,0.9000,,0.0181
+health_bphigh,JOMI,JOMI stud,State or country,1,0.7700,0.8378,29.0000,-0.0678
+health_bphigh,JOMI,JOMI stud,Spatial cell,2,0.8516,0.8616,14.0000,-0.0099
+health_bphigh,RegionCP (ours),SC-GeoCCP,All selected,0,0.9265,0.9000,,0.0265
+health_bphigh,RegionCP (ours),SC-GeoCCP,State or country,1,0.7900,0.8378,29.0000,-0.0478
+health_bphigh,RegionCP (ours),SC-GeoCCP,Spatial cell,2,0.8469,0.8616,14.0000,-0.0146
+health_obesity,JOMI,JOMI stud,All selected,0,0.9108,0.9000,,0.0108
+health_obesity,JOMI,JOMI stud,State or country,1,0.7100,0.8378,29.0000,-0.1278
+health_obesity,JOMI,JOMI stud,Spatial cell,2,0.7083,0.8622,14.0000,-0.1539
+health_obesity,RegionCP (ours),SC-GeoCCP,All selected,0,0.9265,0.9000,,0.0265
+health_obesity,RegionCP (ours),SC-GeoCCP,State or country,1,0.7500,0.8378,29.0000,-0.0878
+health_obesity,RegionCP (ours),SC-GeoCCP,Spatial cell,2,0.7700,0.8622,14.0000,-0.0922

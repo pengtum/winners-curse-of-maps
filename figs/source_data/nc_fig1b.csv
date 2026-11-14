@@ -1,0 +1,6 @@
+group,label,splits,selected_per_split,coverage,needed_halfwidth,coverage_true_spread,missed_above,missed_below,mean_error_over_q
+all,All test units,300,134.0000,0.9046,0.9745,0.9049,0.0664,0.0290,0.0425
+carbon,"Carbon, top K, smooth map",300,6.0000,0.5283,2.2010,0.8267,0.4167,0.0550,0.7551
+carbon_rough,"Carbon, top K, rough map",300,6.0000,0.6311,1.8652,0.8606,0.0933,0.2756,-0.3681
+aid,"Aid, lowest K per country",300,10.0000,1.0000,0.3921,0.9860,0.0000,0.0000,-0.0279
+flood,"Flood relief, budget",300,8.0467,0.8757,1.0938,0.9329,0.0754,0.0489,0.1169

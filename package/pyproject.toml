@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mapselect"
+version = "0.1.0"
+description = "Uncertainty at the places a map selects: selection-conditional conformal calibration, audit planning and project-total bounds for rank-based geographic decisions"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{name = "Peng Luo"}]
+requires-python = ">=3.9"
+dependencies = ["numpy>=1.22", "scipy>=1.9"]
+keywords = ["conformal prediction", "selective inference", "uncertainty quantification", "geospatial", "earth observation"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: GIS",
+    "Topic :: Scientific/Engineering :: Mathematics",
+]
+
+[project.urls]
+Homepage = "https://github.com/pengtum/winners-curse-of-maps"
+
+[project.optional-dependencies]
+basis = ["scikit-learn>=1.0"]
+test = ["pytest"]
+
+[tool.setuptools.packages.find]
+where = ["src"]

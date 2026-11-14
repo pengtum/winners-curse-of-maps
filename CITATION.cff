@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite it as below."
+type: software
+title: "Code for: Machine learning–based maps misstate their uncertainty where decisions are made"
+authors:
+  - family-names: Luo
+    given-names: Peng
+    affiliation: "School of Earth, Environment, and Sustainability, University of Iowa"
+repository-code: "https://github.com/pengtum/winners-curse-of-maps"
+url: "https://github.com/pengtum/winners-curse-of-maps"
+license: MIT
+keywords:
+  - uncertainty quantification
+  - selective inference
+  - conformal prediction
+  - poverty mapping
+  - carbon crediting

@@ -1,0 +1,48 @@
+scale,data,kind,name,geofm,lon,lat,units
+Continent,DHS wealth,country,AGO,True,,,
+Continent,DHS wealth,country,BEN,False,,,
+Continent,DHS wealth,country,BFA,True,,,
+Continent,DHS wealth,country,CIV,False,,,
+Continent,DHS wealth,country,CMR,False,,,
+Continent,DHS wealth,country,COD,False,,,
+Continent,DHS wealth,country,ETH,True,,,
+Continent,DHS wealth,country,GHA,True,,,
+Continent,DHS wealth,country,GIN,False,,,
+Continent,DHS wealth,country,KEN,True,,,
+Continent,DHS wealth,country,LSO,True,,,
+Continent,DHS wealth,country,MLI,True,,,
+Continent,DHS wealth,country,MOZ,False,,,
+Continent,DHS wealth,country,MWI,True,,,
+Continent,DHS wealth,country,NGA,True,,,
+Continent,DHS wealth,country,RWA,True,,,
+Continent,DHS wealth,country,SEN,False,,,
+Continent,DHS wealth,country,SLE,False,,,
+Continent,DHS wealth,country,TGO,False,,,
+Continent,DHS wealth,country,TZA,True,,,
+Continent,DHS wealth,country,UGA,True,,,
+Continent,DHS wealth,country,ZMB,False,,,
+Continent,DHS wealth,country,ZWE,True,,,
+Country,Six US data sources,country,USA,False,,,
+City,Seattle house price,city,Seattle,,-122.3300,47.6100,
+Global,M3LEO biomass,region,South America,,-71.8557,-21.0584,1200.0000
+Global,M3LEO biomass,region,China,,96.1303,36.6355,1192.0000
+Global,M3LEO biomass,region,Conus,,-96.9889,36.8126,1191.0000
+Global,M3LEO biomass,region,Europe,,10.6270,46.8325,1192.0000
+Global,M3LEO biomass,region,Pakistan,,75.9693,29.3183,1193.0000
+Global,M3LEO biomass,region,Middle East,,46.5508,34.2174,1188.0000
+Global,UrbanSARFloods,event,20160419_Houston,,-96.0487,29.9359,442.0000
+Global,UrbanSARFloods,event,20161011_Lumberton,,-78.0029,34.3393,191.0000
+Global,UrbanSARFloods,event,20170830_Houston,,-95.9333,29.9942,541.0000
+Global,UrbanSARFloods,event,20180508_Somalia,,44.8756,4.6835,527.0000
+Global,UrbanSARFloods,event,20190320_Beira,,34.5483,-20.1417,208.0000
+Global,UrbanSARFloods,event,20190329_Iran,,54.3859,37.5862,517.0000
+Global,UrbanSARFloods,event,20190502_Canada,,-74.8393,45.6145,431.0000
+Global,UrbanSARFloods,event,20191012_Japan,,139.7359,37.1196,404.0000
+Global,UrbanSARFloods,event,20210319_PortMacquarie,,152.3871,-31.4153,187.0000
+Global,UrbanSARFloods,event,20210324_Sydney,,150.5449,-32.8212,501.0000
+Global,UrbanSARFloods,event,20220302_Coraki_Australia,,153.1769,-28.5581,135.0000
+Global,UrbanSARFloods,event,20220705_Sydney,,150.5260,-32.8213,461.0000
+Global,UrbanSARFloods,event,20221013_Niger,,7.1261,8.0412,501.0000
+Global,UrbanSARFloods,event,20230805_Hebei_1,,115.8669,39.9501,480.0000
+Global,UrbanSARFloods,event,20230805_Hebei_2,,116.1398,38.3910,453.0000
+Global,UrbanSARFloods,event,20231114_Beledweyne,,44.9362,4.6275,492.0000

@@ -1,0 +1,8 @@
+key,method,coverage,lo,hi,mean_width,width_vs_jomi,inf_share,selected_per_split
+SCP |res|,Split CP (default),0.9817,0.9799,0.9834,1.2690,1.7827,0.0000,150.0000
+SCP stud,Normalized CP,0.9401,0.9357,0.9445,0.8104,1.1385,0.0000,150.0000
+GeoCP,GeoCP,0.9762,0.9740,0.9784,1.1943,1.6779,0.0000,150.0000
+Regression kriging,Regression kriging,0.9792,0.9771,0.9813,1.3103,1.8408,0.0000,150.0000
+QRF,QRF,0.9009,0.8958,0.9061,0.7614,1.0696,0.0000,150.0000
+JOMI stud,JOMI,0.9063,0.8999,0.9128,0.7118,1.0000,0.0000,150.0000
+SC-GeoCCP,RegionCP (ours),0.9164,0.9105,0.9223,0.7697,1.0813,0.0000,150.0000

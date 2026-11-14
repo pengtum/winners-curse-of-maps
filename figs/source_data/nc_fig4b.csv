@@ -1,0 +1,243 @@
+direction,pct,dataset,method,coverage,ci_lo,ci_hi,inf_share,n_selected
+top,20,poverty,Normalized CP,0.8962,0.8931,0.8992,0.0000,600.0000
+top,20,poverty_lab,Normalized CP,0.8931,0.8899,0.8963,0.0000,600.0000
+top,20,fia_db,Normalized CP,0.8640,0.8604,0.8677,0.0000,600.0000
+top,20,camels,Normalized CP,0.8690,0.8547,0.8833,0.0000,40.0000
+top,20,voting,Normalized CP,0.8917,0.8859,0.8975,0.0000,187.0000
+top,20,seattle,Normalized CP,0.8967,0.8919,0.9014,0.0000,180.0000
+top,20,era5,Normalized CP,0.8895,0.8862,0.8929,0.0000,600.0000
+top,20,health_stroke,Normalized CP,0.9020,0.8953,0.9086,0.0000,141.0000
+top,20,health_diabetes,Normalized CP,0.9094,0.9031,0.9156,0.0000,141.0000
+top,20,health_bphigh,Normalized CP,0.9096,0.9042,0.9151,0.0000,141.0000
+top,20,health_obesity,Normalized CP,0.8954,0.8897,0.9011,0.0000,141.0000
+top,5,poverty,Normalized CP,0.9031,0.8973,0.9089,0.0000,150.0000
+top,5,poverty_lab,Normalized CP,0.8990,0.8938,0.9042,0.0000,150.0000
+top,5,fia_db,Normalized CP,0.8519,0.8444,0.8595,0.0000,150.0000
+top,5,camels,Normalized CP,0.8230,0.7935,0.8525,0.0000,10.0000
+top,5,voting,Normalized CP,0.8906,0.8795,0.9017,0.0000,47.0000
+top,5,seattle,Normalized CP,0.9133,0.9051,0.9215,0.0000,45.0000
+top,5,era5,Normalized CP,0.9257,0.9202,0.9312,0.0000,150.0000
+top,5,health_stroke,Normalized CP,0.9154,0.9046,0.9263,0.0000,35.0000
+top,5,health_diabetes,Normalized CP,0.9263,0.9147,0.9379,0.0000,35.0000
+top,5,health_bphigh,Normalized CP,0.9543,0.9455,0.9631,0.0000,35.0000
+top,5,health_obesity,Normalized CP,0.9069,0.8956,0.9181,0.0000,35.0000
+top,1,poverty,Normalized CP,0.9200,0.9089,0.9311,0.0000,30.0000
+top,1,poverty_lab,Normalized CP,0.9063,0.8939,0.9188,0.0000,30.0000
+top,1,fia_db,Normalized CP,0.8240,0.8078,0.8402,0.0000,30.0000
+top,1,camels,Normalized CP,0.7400,0.6801,0.7999,0.0000,2.0000
+top,1,voting,Normalized CP,0.9133,0.8939,0.9328,0.0000,9.0000
+top,1,seattle,Normalized CP,0.9589,0.9459,0.9719,0.0000,9.0000
+top,1,era5,Normalized CP,0.9790,0.9726,0.9854,0.0000,30.0000
+top,1,health_stroke,Normalized CP,0.9443,0.9265,0.9620,0.0000,7.0000
+top,1,health_diabetes,Normalized CP,0.9171,0.8881,0.9462,0.0000,7.0000
+top,1,health_bphigh,Normalized CP,0.9557,0.9399,0.9715,0.0000,7.0000
+top,1,health_obesity,Normalized CP,0.9229,0.8999,0.9459,0.0000,7.0000
+top,20,poverty,GeoCP,0.8612,0.8581,0.8644,0.0000,600.0000
+top,20,poverty_lab,GeoCP,0.8645,0.8613,0.8677,0.0000,600.0000
+top,20,fia_db,GeoCP,0.7244,0.7196,0.7293,0.0000,600.0000
+top,20,camels,GeoCP,0.7990,0.7835,0.8145,0.0000,40.0000
+top,20,voting,GeoCP,0.7966,0.7895,0.8038,0.0000,187.0000
+top,20,seattle,GeoCP,0.8477,0.8421,0.8533,0.0000,180.0000
+top,20,era5,GeoCP,0.9009,0.8979,0.9038,0.0000,600.0000
+top,20,health_stroke,GeoCP,0.8063,0.7985,0.8142,0.0000,141.0000
+top,20,health_diabetes,GeoCP,0.8534,0.8465,0.8603,0.0000,141.0000
+top,20,health_bphigh,GeoCP,0.8839,0.8783,0.8895,0.0000,141.0000
+top,20,health_obesity,GeoCP,0.9219,0.9170,0.9268,0.0000,141.0000
+top,5,poverty,GeoCP,0.9075,0.9028,0.9121,0.0000,150.0000
+top,5,poverty_lab,GeoCP,0.9121,0.9071,0.9170,0.0000,150.0000
+top,5,fia_db,GeoCP,0.6298,0.6201,0.6395,0.0000,150.0000
+top,5,camels,GeoCP,0.7580,0.7232,0.7928,0.0000,10.0000
+top,5,voting,GeoCP,0.7438,0.7312,0.7565,0.0000,47.0000
+top,5,seattle,GeoCP,0.7644,0.7521,0.7768,0.0000,45.0000
+top,5,era5,GeoCP,0.9207,0.9150,0.9263,0.0000,150.0000
+top,5,health_stroke,GeoCP,0.7246,0.7071,0.7421,0.0000,35.0000
+top,5,health_diabetes,GeoCP,0.7554,0.7393,0.7716,0.0000,35.0000
+top,5,health_bphigh,GeoCP,0.8343,0.8205,0.8480,0.0000,35.0000
+top,5,health_obesity,GeoCP,0.9094,0.8996,0.9192,0.0000,35.0000
+top,1,poverty,GeoCP,0.9020,0.8918,0.9122,0.0000,30.0000
+top,1,poverty_lab,GeoCP,0.9130,0.9019,0.9241,0.0000,30.0000
+top,1,fia_db,GeoCP,0.4933,0.4744,0.5123,0.0000,30.0000
+top,1,camels,GeoCP,0.6700,0.6089,0.7311,0.0000,2.0000
+top,1,voting,GeoCP,0.6889,0.6594,0.7184,0.0000,9.0000
+top,1,seattle,GeoCP,0.7244,0.6972,0.7517,0.0000,9.0000
+top,1,era5,GeoCP,0.9840,0.9788,0.9892,0.0000,30.0000
+top,1,health_stroke,GeoCP,0.6329,0.5880,0.6778,0.0000,7.0000
+top,1,health_diabetes,GeoCP,0.5900,0.5501,0.6299,0.0000,7.0000
+top,1,health_bphigh,GeoCP,0.6943,0.6561,0.7325,0.0000,7.0000
+top,1,health_obesity,GeoCP,0.8800,0.8546,0.9054,0.0000,7.0000
+top,20,poverty,JOMI,0.9001,0.8967,0.9035,0.0000,600.0000
+top,20,poverty_lab,JOMI,0.9015,0.8979,0.9051,0.0000,600.0000
+top,20,fia_db,JOMI,0.9020,0.8986,0.9053,0.0000,600.0000
+top,20,camels,JOMI,0.9095,0.8955,0.9235,0.0000,40.0000
+top,20,voting,JOMI,0.8981,0.8919,0.9042,0.0000,187.0000
+top,20,seattle,JOMI,0.9038,0.8979,0.9096,0.0000,180.0000
+top,20,era5,JOMI,0.9020,0.8984,0.9057,0.0000,600.0000
+top,20,health_stroke,JOMI,0.9008,0.8933,0.9083,0.0000,141.0000
+top,20,health_diabetes,JOMI,0.9032,0.8958,0.9106,0.0000,141.0000
+top,20,health_bphigh,JOMI,0.9018,0.8954,0.9083,0.0000,141.0000
+top,20,health_obesity,JOMI,0.9050,0.8987,0.9113,0.0000,141.0000
+top,5,poverty,JOMI,0.9051,0.8987,0.9116,0.0000,150.0000
+top,5,poverty_lab,JOMI,0.9000,0.8940,0.9060,0.0000,150.0000
+top,5,fia_db,JOMI,0.9001,0.8945,0.9058,0.0000,150.0000
+top,5,camels,JOMI,0.9470,0.9268,0.9672,0.2800,10.0000
+top,5,voting,JOMI,0.9072,0.8947,0.9198,0.0000,47.0000
+top,5,seattle,JOMI,0.9056,0.8934,0.9178,0.0000,45.0000
+top,5,era5,JOMI,0.9062,0.8986,0.9138,0.0000,150.0000
+top,5,health_stroke,JOMI,0.9134,0.9004,0.9264,0.0000,35.0000
+top,5,health_diabetes,JOMI,0.9120,0.8989,0.9251,0.0000,35.0000
+top,5,health_bphigh,JOMI,0.9186,0.9061,0.9311,0.0000,35.0000
+top,5,health_obesity,JOMI,0.9120,0.8972,0.9268,0.0000,35.0000
+top,1,poverty,JOMI,0.9280,0.9146,0.9414,0.0000,30.0000
+top,1,poverty_lab,JOMI,0.9113,0.8980,0.9247,0.0000,30.0000
+top,1,fia_db,JOMI,0.9100,0.8963,0.9237,0.0000,30.0000
+top,1,camels,JOMI,1.0000,1.0000,1.0000,0.9700,2.0000
+top,1,voting,JOMI,0.9456,0.9261,0.9650,0.4200,9.0000
+top,1,seattle,JOMI,0.9411,0.9193,0.9629,0.4200,9.0000
+top,1,era5,JOMI,0.9177,0.9038,0.9315,0.0000,30.0000
+top,1,health_stroke,JOMI,0.9757,0.9619,0.9895,0.5700,7.0000
+top,1,health_diabetes,JOMI,0.9757,0.9613,0.9901,0.5700,7.0000
+top,1,health_bphigh,JOMI,0.9800,0.9687,0.9913,0.5900,7.0000
+top,1,health_obesity,JOMI,0.9757,0.9608,0.9906,0.6300,7.0000
+top,5,poverty,RegionCP (ours),0.9204,0.9145,0.9263,0.0000,150.0000
+top,5,poverty_lab,RegionCP (ours),0.9173,0.9118,0.9227,0.0000,150.0000
+top,5,fia_db,RegionCP (ours),0.9095,0.9039,0.9151,0.0000,150.0000
+top,5,camels,RegionCP (ours),0.9470,0.9268,0.9672,0.2800,10.0000
+top,5,voting,RegionCP (ours),0.9147,0.9020,0.9273,0.0000,47.0000
+top,5,seattle,RegionCP (ours),0.9229,0.9121,0.9337,0.0000,45.0000
+top,5,era5,RegionCP (ours),0.9125,0.9054,0.9196,0.0000,150.0000
+top,5,health_stroke,RegionCP (ours),0.9243,0.9120,0.9365,0.0000,35.0000
+top,5,health_diabetes,RegionCP (ours),0.9306,0.9196,0.9415,0.0000,35.0000
+top,5,health_bphigh,RegionCP (ours),0.9309,0.9192,0.9425,0.0000,35.0000
+top,5,health_obesity,RegionCP (ours),0.9280,0.9152,0.9408,0.0000,35.0000
+top,1,poverty,RegionCP (ours),0.9320,0.9191,0.9449,0.0000,30.0000
+top,1,poverty_lab,RegionCP (ours),0.9250,0.9131,0.9369,0.0000,30.0000
+top,1,fia_db,RegionCP (ours),0.9200,0.9066,0.9334,0.0000,30.0000
+top,1,camels,RegionCP (ours),1.0000,1.0000,1.0000,0.9700,2.0000
+top,1,voting,RegionCP (ours),0.9456,0.9261,0.9650,0.4200,9.0000
+top,1,seattle,RegionCP (ours),0.9411,0.9193,0.9629,0.4200,9.0000
+top,1,era5,RegionCP (ours),0.9233,0.9101,0.9366,0.0000,30.0000
+top,1,health_stroke,RegionCP (ours),0.9757,0.9619,0.9895,0.5700,7.0000
+top,1,health_diabetes,RegionCP (ours),0.9757,0.9613,0.9901,0.5700,7.0000
+top,1,health_bphigh,RegionCP (ours),0.9800,0.9687,0.9913,0.5900,7.0000
+top,1,health_obesity,RegionCP (ours),0.9757,0.9608,0.9906,0.6300,7.0000
+bottom,20,poverty,Normalized CP,0.9187,0.9158,0.9216,0.0000,600.0000
+bottom,20,poverty_lab,Normalized CP,0.9232,0.9204,0.9260,0.0000,600.0000
+bottom,20,fia_db,Normalized CP,0.9716,0.9699,0.9732,0.0000,600.0000
+bottom,20,camels,Normalized CP,0.9712,0.9647,0.9778,0.0000,40.0000
+bottom,20,voting,Normalized CP,0.9424,0.9383,0.9465,0.0000,187.0000
+bottom,20,seattle,Normalized CP,0.8936,0.8878,0.8993,0.0000,180.0000
+bottom,20,era5,Normalized CP,0.9092,0.9062,0.9121,0.0000,600.0000
+bottom,20,health_stroke,Normalized CP,0.8957,0.8890,0.9023,0.0000,141.0000
+bottom,20,health_diabetes,Normalized CP,0.9175,0.9122,0.9229,0.0000,141.0000
+bottom,20,health_bphigh,Normalized CP,0.9077,0.9020,0.9134,0.0000,141.0000
+bottom,20,health_obesity,Normalized CP,0.9144,0.9089,0.9199,0.0000,141.0000
+bottom,5,poverty,Normalized CP,0.9401,0.9357,0.9445,0.0000,150.0000
+bottom,5,poverty_lab,Normalized CP,0.9245,0.9200,0.9290,0.0000,150.0000
+bottom,5,fia_db,Normalized CP,1.0000,1.0000,1.0000,0.0000,150.0000
+bottom,5,camels,Normalized CP,0.9960,0.9921,0.9999,0.0000,10.0000
+bottom,5,voting,Normalized CP,0.9774,0.9732,0.9817,0.0000,47.0000
+bottom,5,seattle,Normalized CP,0.8711,0.8597,0.8825,0.0000,45.0000
+bottom,5,era5,Normalized CP,0.9043,0.8985,0.9102,0.0000,150.0000
+bottom,5,health_stroke,Normalized CP,0.8826,0.8715,0.8937,0.0000,35.0000
+bottom,5,health_diabetes,Normalized CP,0.9337,0.9240,0.9435,0.0000,35.0000
+bottom,5,health_bphigh,Normalized CP,0.9217,0.9133,0.9301,0.0000,35.0000
+bottom,5,health_obesity,Normalized CP,0.9294,0.9199,0.9390,0.0000,35.0000
+bottom,1,poverty,Normalized CP,0.9460,0.9374,0.9546,0.0000,30.0000
+bottom,1,poverty_lab,Normalized CP,0.9103,0.8980,0.9227,0.0000,30.0000
+bottom,1,fia_db,Normalized CP,1.0000,1.0000,1.0000,0.0000,30.0000
+bottom,1,camels,Normalized CP,1.0000,1.0000,1.0000,0.0000,2.0000
+bottom,1,voting,Normalized CP,0.9956,0.9913,0.9998,0.0000,9.0000
+bottom,1,seattle,Normalized CP,0.9022,0.8823,0.9221,0.0000,9.0000
+bottom,1,era5,Normalized CP,0.8557,0.8413,0.8700,0.0000,30.0000
+bottom,1,health_stroke,Normalized CP,0.9000,0.8760,0.9240,0.0000,7.0000
+bottom,1,health_diabetes,Normalized CP,0.9657,0.9513,0.9801,0.0000,7.0000
+bottom,1,health_bphigh,Normalized CP,0.9300,0.9120,0.9480,0.0000,7.0000
+bottom,1,health_obesity,Normalized CP,0.9429,0.9269,0.9588,0.0000,7.0000
+bottom,20,poverty,GeoCP,0.9820,0.9810,0.9830,0.0000,600.0000
+bottom,20,poverty_lab,GeoCP,0.9805,0.9794,0.9816,0.0000,600.0000
+bottom,20,fia_db,GeoCP,0.9995,0.9993,0.9998,0.0000,600.0000
+bottom,20,camels,GeoCP,0.9685,0.9600,0.9770,0.0000,40.0000
+bottom,20,voting,GeoCP,0.9772,0.9746,0.9797,0.0000,187.0000
+bottom,20,seattle,GeoCP,0.8947,0.8897,0.8998,0.0000,180.0000
+bottom,20,era5,GeoCP,0.8913,0.8881,0.8945,0.0000,600.0000
+bottom,20,health_stroke,GeoCP,0.9335,0.9287,0.9383,0.0000,141.0000
+bottom,20,health_diabetes,GeoCP,0.9150,0.9092,0.9209,0.0000,141.0000
+bottom,20,health_bphigh,GeoCP,0.8934,0.8880,0.8988,0.0000,141.0000
+bottom,20,health_obesity,GeoCP,0.8321,0.8238,0.8404,0.0000,141.0000
+bottom,5,poverty,GeoCP,0.9762,0.9740,0.9784,0.0000,150.0000
+bottom,5,poverty_lab,GeoCP,0.9729,0.9706,0.9752,0.0000,150.0000
+bottom,5,fia_db,GeoCP,1.0000,1.0000,1.0000,0.0000,150.0000
+bottom,5,camels,GeoCP,0.9960,0.9905,1.0015,0.0000,10.0000
+bottom,5,voting,GeoCP,0.9970,0.9956,0.9985,0.0000,47.0000
+bottom,5,seattle,GeoCP,0.8247,0.8136,0.8358,0.0000,45.0000
+bottom,5,era5,GeoCP,0.8855,0.8788,0.8922,0.0000,150.0000
+bottom,5,health_stroke,GeoCP,0.9123,0.9034,0.9212,0.0000,35.0000
+bottom,5,health_diabetes,GeoCP,0.9029,0.8918,0.9139,0.0000,35.0000
+bottom,5,health_bphigh,GeoCP,0.8657,0.8554,0.8760,0.0000,35.0000
+bottom,5,health_obesity,GeoCP,0.7780,0.7605,0.7955,0.0000,35.0000
+bottom,1,poverty,GeoCP,0.9700,0.9644,0.9756,0.0000,30.0000
+bottom,1,poverty_lab,GeoCP,0.9663,0.9601,0.9726,0.0000,30.0000
+bottom,1,fia_db,GeoCP,1.0000,1.0000,1.0000,0.0000,30.0000
+bottom,1,camels,GeoCP,1.0000,1.0000,1.0000,0.0000,2.0000
+bottom,1,voting,GeoCP,0.9978,0.9947,1.0008,0.0000,9.0000
+bottom,1,seattle,GeoCP,0.8200,0.7953,0.8447,0.0000,9.0000
+bottom,1,era5,GeoCP,0.8250,0.8096,0.8404,0.0000,30.0000
+bottom,1,health_stroke,GeoCP,0.9186,0.8986,0.9386,0.0000,7.0000
+bottom,1,health_diabetes,GeoCP,0.8943,0.8680,0.9206,0.0000,7.0000
+bottom,1,health_bphigh,GeoCP,0.8600,0.8368,0.8832,0.0000,7.0000
+bottom,1,health_obesity,GeoCP,0.7586,0.7246,0.7925,0.0000,7.0000
+bottom,20,poverty,JOMI,0.8999,0.8963,0.9035,0.0000,600.0000
+bottom,20,poverty_lab,JOMI,0.9004,0.8973,0.9035,0.0000,600.0000
+bottom,20,fia_db,JOMI,0.9002,0.8966,0.9037,0.0000,600.0000
+bottom,20,camels,JOMI,0.8988,0.8842,0.9133,0.0000,40.0000
+bottom,20,voting,JOMI,0.9036,0.8981,0.9092,0.0000,187.0000
+bottom,20,seattle,JOMI,0.8984,0.8915,0.9054,0.0000,180.0000
+bottom,20,era5,JOMI,0.9002,0.8966,0.9038,0.0000,600.0000
+bottom,20,health_stroke,JOMI,0.9048,0.8975,0.9120,0.0000,141.0000
+bottom,20,health_diabetes,JOMI,0.9028,0.8960,0.9096,0.0000,141.0000
+bottom,20,health_bphigh,JOMI,0.8995,0.8927,0.9063,0.0000,141.0000
+bottom,20,health_obesity,JOMI,0.9017,0.8949,0.9085,0.0000,141.0000
+bottom,5,poverty,JOMI,0.9063,0.8999,0.9128,0.0000,150.0000
+bottom,5,poverty_lab,JOMI,0.9024,0.8959,0.9089,0.0000,150.0000
+bottom,5,fia_db,JOMI,0.9051,0.8977,0.9126,0.0000,150.0000
+bottom,5,camels,JOMI,0.9460,0.9281,0.9639,0.2800,10.0000
+bottom,5,voting,JOMI,0.9145,0.9029,0.9260,0.0000,47.0000
+bottom,5,seattle,JOMI,0.9031,0.8905,0.9158,0.0000,45.0000
+bottom,5,era5,JOMI,0.9038,0.8976,0.9100,0.0000,150.0000
+bottom,5,health_stroke,JOMI,0.9163,0.9025,0.9301,0.0000,35.0000
+bottom,5,health_diabetes,JOMI,0.9163,0.9033,0.9292,0.0000,35.0000
+bottom,5,health_bphigh,JOMI,0.9149,0.9034,0.9264,0.0000,35.0000
+bottom,5,health_obesity,JOMI,0.9097,0.8956,0.9238,0.0000,35.0000
+bottom,1,poverty,JOMI,0.9127,0.8986,0.9267,0.0000,30.0000
+bottom,1,poverty_lab,JOMI,0.9100,0.8950,0.9250,0.0000,30.0000
+bottom,1,fia_db,JOMI,0.9053,0.8874,0.9233,0.0000,30.0000
+bottom,1,camels,JOMI,0.9900,0.9762,1.0038,0.9500,2.0000
+bottom,1,voting,JOMI,0.9522,0.9314,0.9730,0.3600,9.0000
+bottom,1,seattle,JOMI,0.9600,0.9432,0.9768,0.4100,9.0000
+bottom,1,era5,JOMI,0.9103,0.8951,0.9255,0.0000,30.0000
+bottom,1,health_stroke,JOMI,0.9686,0.9529,0.9843,0.5300,7.0000
+bottom,1,health_diabetes,JOMI,0.9814,0.9704,0.9924,0.6700,7.0000
+bottom,1,health_bphigh,JOMI,0.9743,0.9592,0.9894,0.6200,7.0000
+bottom,1,health_obesity,JOMI,0.9657,0.9466,0.9849,0.5700,7.0000
+bottom,5,poverty,RegionCP (ours),0.9164,0.9105,0.9223,0.0000,150.0000
+bottom,5,poverty_lab,RegionCP (ours),0.9139,0.9082,0.9196,0.0000,150.0000
+bottom,5,fia_db,RegionCP (ours),0.9302,0.9241,0.9363,0.0000,150.0000
+bottom,5,camels,RegionCP (ours),0.9490,0.9317,0.9663,0.2800,10.0000
+bottom,5,voting,RegionCP (ours),0.9332,0.9229,0.9435,0.0000,47.0000
+bottom,5,seattle,RegionCP (ours),0.9144,0.9036,0.9252,0.0000,45.0000
+bottom,5,era5,RegionCP (ours),0.9131,0.9072,0.9190,0.0000,150.0000
+bottom,5,health_stroke,RegionCP (ours),0.9257,0.9135,0.9379,0.0000,35.0000
+bottom,5,health_diabetes,RegionCP (ours),0.9331,0.9225,0.9438,0.0000,35.0000
+bottom,5,health_bphigh,RegionCP (ours),0.9263,0.9161,0.9365,0.0000,35.0000
+bottom,5,health_obesity,RegionCP (ours),0.9263,0.9139,0.9386,0.0000,35.0000
+bottom,1,poverty,RegionCP (ours),0.9157,0.9020,0.9294,0.0000,30.0000
+bottom,1,poverty_lab,RegionCP (ours),0.9143,0.8996,0.9291,0.0000,30.0000
+bottom,1,fia_db,RegionCP (ours),0.9083,0.8893,0.9273,0.0000,30.0000
+bottom,1,camels,RegionCP (ours),0.9900,0.9762,1.0038,0.9500,2.0000
+bottom,1,voting,RegionCP (ours),0.9522,0.9314,0.9730,0.3600,9.0000
+bottom,1,seattle,RegionCP (ours),0.9600,0.9432,0.9768,0.4100,9.0000
+bottom,1,era5,RegionCP (ours),0.9137,0.8992,0.9281,0.0000,30.0000
+bottom,1,health_stroke,RegionCP (ours),0.9686,0.9529,0.9843,0.5300,7.0000
+bottom,1,health_diabetes,RegionCP (ours),0.9814,0.9704,0.9924,0.6700,7.0000
+bottom,1,health_bphigh,RegionCP (ours),0.9743,0.9592,0.9894,0.6200,7.0000
+bottom,1,health_obesity,RegionCP (ours),0.9657,0.9466,0.9849,0.5700,7.0000

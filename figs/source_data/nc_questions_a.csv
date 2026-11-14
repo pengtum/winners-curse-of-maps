@@ -1,0 +1,45 @@
+dataset,rule,method,label,width_rel_jomi,coverage,inf_share,part,ci_lo,ci_hi,n_selected,splits
+poverty,bottom5,SCP |res|,Split CP,1.7827,0.9817,0.0000,width,,,,
+poverty_lab,bottom5,SCP |res|,Split CP,1.8243,0.9782,0.0000,width,,,,
+fia_db,top5,SCP |res|,Split CP,0.2188,0.3471,0.0000,width,,,,
+camels,top5,SCP |res|,Split CP,0.2018,0.4130,0.0000,width,,,,
+voting,top5,SCP |res|,Split CP,0.6626,0.7519,0.0000,width,,,,
+seattle,top5,SCP |res|,Split CP,0.6223,0.7429,0.0000,width,,,,
+era5,bottom5,SCP |res|,Split CP,0.8347,0.8012,0.0000,width,,,,
+health_stroke,top5,SCP |res|,Split CP,0.5223,0.7103,0.0000,width,,,,
+health_diabetes,top5,SCP |res|,Split CP,0.6117,0.7443,0.0000,width,,,,
+health_bphigh,top5,SCP |res|,Split CP,0.7853,0.8360,0.0000,width,,,,
+health_obesity,top5,SCP |res|,Split CP,1.0147,0.9320,0.0000,width,,,,
+poverty,bottom5,Split CP,,,0.9817,0.0000,coverage,0.9799,0.9834,150.0000,100.0000
+poverty_lab,bottom5,Split CP,,,0.9782,0.0000,coverage,0.9762,0.9802,150.0000,100.0000
+fia_db,top5,Split CP,,,0.3471,0.0000,coverage,0.3399,0.3542,150.0000,100.0000
+camels,top5,Split CP,,,0.4130,0.0000,coverage,0.3855,0.4405,10.0000,100.0000
+voting,top5,Split CP,,,0.7519,0.0000,coverage,0.7384,0.7655,47.0000,100.0000
+seattle,top5,Split CP,,,0.7429,0.0000,coverage,0.7300,0.7558,45.0000,100.0000
+era5,bottom5,Split CP,,,0.8012,0.0000,coverage,0.7935,0.8089,150.0000,100.0000
+health_stroke,top5,Split CP,,,0.7103,0.0000,coverage,0.6929,0.7276,35.0000,100.0000
+health_diabetes,top5,Split CP,,,0.7443,0.0000,coverage,0.7291,0.7594,35.0000,100.0000
+health_bphigh,top5,Split CP,,,0.8360,0.0000,coverage,0.8224,0.8496,35.0000,100.0000
+health_obesity,top5,Split CP,,,0.9320,0.0000,coverage,0.9239,0.9401,35.0000,100.0000
+poverty,bottom5,Normalized CP,,,0.9401,0.0000,coverage,0.9357,0.9445,150.0000,100.0000
+poverty_lab,bottom5,Normalized CP,,,0.9245,0.0000,coverage,0.9200,0.9290,150.0000,100.0000
+fia_db,top5,Normalized CP,,,0.8519,0.0000,coverage,0.8444,0.8595,150.0000,100.0000
+camels,top5,Normalized CP,,,0.8230,0.0000,coverage,0.7935,0.8525,10.0000,100.0000
+voting,top5,Normalized CP,,,0.8906,0.0000,coverage,0.8795,0.9017,47.0000,100.0000
+seattle,top5,Normalized CP,,,0.9133,0.0000,coverage,0.9051,0.9215,45.0000,100.0000
+era5,bottom5,Normalized CP,,,0.9043,0.0000,coverage,0.8985,0.9102,150.0000,100.0000
+health_stroke,top5,Normalized CP,,,0.9154,0.0000,coverage,0.9046,0.9263,35.0000,100.0000
+health_diabetes,top5,Normalized CP,,,0.9263,0.0000,coverage,0.9147,0.9379,35.0000,100.0000
+health_bphigh,top5,Normalized CP,,,0.9543,0.0000,coverage,0.9455,0.9631,35.0000,100.0000
+health_obesity,top5,Normalized CP,,,0.9069,0.0000,coverage,0.8956,0.9181,35.0000,100.0000
+poverty,bottom5,JOMI,,,0.9063,0.0000,coverage,0.8999,0.9128,150.0000,100.0000
+poverty_lab,bottom5,JOMI,,,0.9024,0.0000,coverage,0.8959,0.9089,150.0000,100.0000
+fia_db,top5,JOMI,,,0.9001,0.0000,coverage,0.8945,0.9058,150.0000,100.0000
+camels,top5,JOMI,,,0.9470,0.2800,coverage,0.9268,0.9672,10.0000,100.0000
+voting,top5,JOMI,,,0.9072,0.0000,coverage,0.8947,0.9198,47.0000,100.0000
+seattle,top5,JOMI,,,0.9056,0.0000,coverage,0.8934,0.9178,45.0000,100.0000
+era5,bottom5,JOMI,,,0.9038,0.0000,coverage,0.8976,0.9100,150.0000,100.0000
+health_stroke,top5,JOMI,,,0.9134,0.0000,coverage,0.9004,0.9264,35.0000,100.0000
+health_diabetes,top5,JOMI,,,0.9120,0.0000,coverage,0.8989,0.9251,35.0000,100.0000
+health_bphigh,top5,JOMI,,,0.9186,0.0000,coverage,0.9061,0.9311,35.0000,100.0000
+health_obesity,top5,JOMI,,,0.9120,0.0000,coverage,0.8972,0.9268,35.0000,100.0000

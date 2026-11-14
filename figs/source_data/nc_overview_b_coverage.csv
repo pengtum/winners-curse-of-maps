@@ -1,0 +1,3 @@
+plots,splits,plot_splits,inside_split_cp_interval,share_inside,ci95_halfwidth_over_splits,lowest_split,highest_split
+all test plots,100,300000,269881,0.8996,0.0013,0.8810,0.9143
+the map's highest 5% of test plots,100,15000,5206,0.3471,0.0072,0.2533,0.4333
