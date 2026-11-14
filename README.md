@@ -34,17 +34,17 @@ Per-split and per-group results, logs and the result tables cited in the SI Appe
 ```bash
 unzip QW2_results_for_review.zip 'QW2/results/*' && mv QW2/results results && rm -r QW2
 ```
-Six of the seven main figures then redraw from these tables and `data/` (`python figures/make_fig_regions.py` draws Fig. 6; each script's docstring names its figure and inputs). Fig. 4 (aid targeting) also needs the DHS files, which are not shared, as do the supplementary figures built on the deep-backbone predictions.
+The summary scripts in `experiments/` then rebuild the result tables from these files; those that also draw a figure write it to `figs/`, so create that folder first (`mkdir -p figs`). The figure scripts and the figure data are not in this repository; the figure data are Dataset S1 of the paper.
 
 ## Contents
 - `package/`: mapselect, the methods as an installable Python package (numpy, scipy; MIT licence). `pip install ./package`, then `python package/tests/test_mapselect.py` (20 tests); `python tests/test_planner.py` checks the audit planner against enumeration.
 - `excp_select/`, `vendor/excp_20261021/`: the code behind the results (closed-form reference sets; SC-GeoCCP, which the paper calls RegionCP; total bounds) and the conformal engine it uses.
 - `experiments/`: every run, summary and judgement script; each file's docstring gives its command and outputs.
-- `figures/`: figure scripts, each naming its inputs in its docstring; `figs/source_data/`: figure data under working names (Dataset S1 of the paper holds the same data under the final figure numbers).
+- `figures/style.py`: the plotting style that summary scripts in `experiments/` import (the figure scripts and figure data are not in this repository).
 - `tests/`: brute-force swap, Monte Carlo coverage, pool-lemma and SC-GeoCCP checks.
 - `results/` (the results archive; see Results above): per-split and per-group results, logs and the `RESULTS_*.md` tables cited in the SI Appendix; `results/cache/*_frozen*` hold the designs frozen before each run, with SHA-256 digests (the design notes are in Chinese); `results/cache/` also keeps the FIA and ESA CCI extraction logs, the checksums of the raw downloads and the swap-test log. In logs, local paths are shortened to `QW2/` and `~/`.
 - `data/`: the FIA plot table rebuilt from FIADB 9.5 and the ESA CCI values at the plots; Natural Earth boundaries.
-- `website/`: the interactive site and the script that builds its data.
+- `website/`: the interactive site and the script that builds its data from the figure data (not included).
 
 ## Not included
 - DHS data: the cluster table, unit-level predictions and labels, and the deep-backbone prediction files, under the DHS terms (access: https://dhsprogram.com; PovertyMap-WILDS). DHS results appear only as country and split summaries: rows for spatial cells were removed, and the pilot's per-village table `results/pilot_l2_poverty_lab.csv` is replaced by its summary by country and split (selected, covered and finite counts, median and mean finite half-width, mean reference-set size).
@@ -63,7 +63,7 @@ The other loaders in `experiments/data.py` read the published source tables (fil
 
 ## Licence
 - Code: MIT (`LICENSE`), including `package/` and `vendor/excp_20261021/`, a copy of the author's conformal-inference package (imported as `excp`; current name geounicp).
-- Results, logs and figure data made in this study (`results/`, `figs/source_data/`): CC BY 4.0.
+- Results and logs made in this study (`results/`, in the results archive): CC BY 4.0.
 - Data in `data/`: their own terms, listed above.
 
 ## Citation
